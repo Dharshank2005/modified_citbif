@@ -32,6 +32,8 @@ import com4 from "../public/company4.jpg"
 import com5 from "../public/company5.jpg"
 import com6 from "../public/company6.jpg"
 import chairman from "../public/Chairman.jpg"
+import edii from "../public/edii.png"
+import idealab from "../public/idealab.png"
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -250,7 +252,7 @@ export default function Home() {
 
                 <div className="max-w-lg">
                   <p className="text-[#1B120A] text-xl leading-relaxed animate-slide-in-left stagger-2">
-                    Chennai Institute of Technology Innovation Labs - Empowering the next generation of entrepreneurs
+                    Chennai Institute of Technology Business Incubation Forum - Empowering the next generation of entrepreneurs
                     and innovators.
                   </p>
                 </div>
@@ -275,15 +277,15 @@ export default function Home() {
               <div className="relative">
                 {/* Main Circle */}
                 <div className="relative w-96 h-96 bg-gradient-to-br from-[#FF6B35] to-[#FFB347] rounded-full flex items-center justify-center animate-float hover-glow">
-                  <div className="absolute inset-4 bg-[#1a1a1a] rounded-full flex items-center justify-center">
+                  <div className="absolute inset-4 bg-[#F0E7C3] rounded-full flex items-center justify-center">
                     <Image
-                      src="/innovation-hub.png"
+                      src="/citbif-new-logo.png"
                       alt="Innovation Hub"
-                      width={200}
-                      height={200}
-                      className="h-32 w-auto animate-rotate-slow"
+                      width={400}
+                      height={400}
+                      className="w-[300px] h-[300px] w-auto animate-rotate-slow"
                       onError={(e) => {
-                        e.currentTarget.src = "/placeholder.svg?height=200&width=200"
+                        e.currentTarget.src = "/logo.png?height=200&width=200"
                       }}
                     />
                   </div>
@@ -335,14 +337,7 @@ export default function Home() {
                     <span className="text-2xl">🚀</span>
                   </div>
                   <p className="text-white leading-relaxed text-lg">
-                    The Chennai Institute Technology Business Incubation Forum (CITBIF) is a Section 8 Company,
-                    operating under the brand name Chennai Institute of Technology Innovation Labs (CITIL) dedicated to
-                    nurturing entrepreneurship by offering mentorship, cutting-edge technology, and specialized COEs for
-                    deep tech product development. We provide crucial funding and comprehensive support, guiding ideas
-                    to become thriving businesses. CITIL's focus areas include AI/ML, IoT, and other innovative,
-                    sustainable ventures. Our commitment lies in empowering startups to flourish and thrive in the
-                    market. With a blend of innovation, technology, and support, we pave the way for the growth of
-                    entrepreneurial endeavors.
+                    The Chennai Institute of Technology Business Incubation Forum (CITBIF), a Section 8 Company, operates under the brand name Chennai Institute of Technology Innovation Labs (CITIL). It is committed to fostering entrepreneurship by providing mentorship, advanced technology, and dedicated Centres of Excellence (COEs) for deep tech product development. CITIL offers essential funding and all-round support to help transform ideas into successful businesses. Its key focus areas include AI/ML, IoT, and other forward-thinking, sustainable initiatives. CITIL is devoted to empowering startups to succeed in the market by combining innovation, technology, and strong support to drive entrepreneurial growth.
                   </p>
                 </div>
               </div>
@@ -358,7 +353,7 @@ export default function Home() {
                 <div className="relative bg-gradient-to-br from-[#1B120A] to-[#2a2a2a] p-8 rounded-3xl border border-[#FFB347]/50 shadow-2xl hover-lift">
                   <div className="image-hover rounded-2xl overflow-hidden">
                     <Image
-                      src="/incubation-lab.png"
+                      src="/citbif-lab.png"
                       alt="CIT Incubation Lab"
                       width={500}
                       height={400}
@@ -392,7 +387,7 @@ export default function Home() {
     {/* Header */}
     <div className="text-center mb-20 scroll-animate">
       <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer relative inline-block">
-        Objectives of CITIL
+        Objectives of CITBIF
         <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#FF6B35] rounded-full animate-scale-in"></div>
       </h2>
     </div>
@@ -770,7 +765,7 @@ export default function Home() {
           {/* Header */}
           <div className="text-center mb-20 scroll-animate">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer relative inline-block">
-              How CITIL adds values
+              How CITBIF adds values
               <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#FF6B35] rounded-full animate-scale-in"></div>
             </h2>
           </div>
@@ -993,92 +988,145 @@ export default function Home() {
       </section>
 
       {/* Corporate Partnerships - Flowing Grid */}
-      <section className="bg-[#FFB347]/10 py-24 relative overflow-hidden scroll-animate">
-        <div className="absolute inset-0 bg-[url('/partners-bg.png')] opacity-5 animate-pulse"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          {/* Header */}
-          <div className="text-center mb-20 scroll-animate">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer relative inline-block">
-              Corporate Partnerships and Collaborations
-              <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#FF6B35] rounded-full animate-scale-in"></div>
-            </h2>
-          </div>
+          <section className="bg-[#FFB347]/10 py-24 relative overflow-hidden scroll-animate">
+            <div className="absolute inset-0 bg-[url('/partners-bg.png')] opacity-5 animate-pulse"></div>
+            <div className="container mx-auto px-4 relative z-10">
+              {/* Header */}
+              <div className="text-center mb-20 scroll-animate">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer relative inline-block">
+                  Corporate Partnerships and Collaborations
+                  <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#FF6B35] rounded-full animate-scale-in"></div>
+                </h2>
+              </div>
 
-          {/* Flowing Grid */}
-          <div className="grid grid-cols-3 md:grid-cols-5 gap-8 max-w-6xl mx-auto">
-            {[
-              { name: "KUKA", logo: kuka },
-              { name: "Dassault", logo: dassault },
-              { name: "Bonfiglioli", logo: bonfiglioli },
-              { name: "Fronius", logo: fronius },
-              { name: "CyberX", logo: cyberx },
-              { name: "SEIndia", logo: sindia },
-              { name: "Zoho", logo: zoho },
-              { name: "Buddi AI", logo: buddi },
-              { name: "Festa Solar", logo: festa },
-            ].map((partner, index) => (
-              <div key={index} className={`group scroll-animate stagger-${(index % 6) + 1}`}>
-                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 partnership-zoom partnership-item hover:shadow-2xl border border-gray-200/50 hover:border-[#FF6B35]/50">
-                  <div className="w-full h-20 flex items-center justify-center">
-                    <Image
-                      src={partner.logo || "/placeholder.svg"}
-                      alt={partner.name}
-                      width={120}
-                      height={60}
-                      className="max-h-12 w-auto opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
-                      onError={(e) => {
-                        e.currentTarget.src = "/placeholder.svg?height=60&width=120"
-                      }}
-                    />
-                  </div>
+              {/* Flowing Grid */}
+              <div className="max-w-6xl mx-auto">
+                {/* Full Rows */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+                  {[
+                    { name: "KUKA", logo: kuka },
+                    { name: "Dassault", logo: dassault },
+                    { name: "Bonfiglioli", logo: bonfiglioli },
+                    { name: "Fronius", logo: fronius },
+                    { name: "CyberX", logo: cyberx },
+                    { name: "SEIndia", logo: sindia },
+                    { name: "Zoho", logo: zoho },
+                    { name: "Buddi AI", logo: buddi },
+                  ].map((partner, index) => (
+                    <div key={index} className="group">
+                      <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 partnership-zoom partnership-item hover:shadow-2xl border border-gray-200/50 hover:border-[#FF6B35]/50">
+                        <div className="w-full h-20 flex items-center justify-center">
+                          <Image
+                            src={partner.logo || "/placeholder.svg"}
+                            alt={partner.name}
+                            width={120}
+                            height={60}
+                            className="max-h-12 w-auto opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
+                            onError={(e) => {
+                              e.currentTarget.src = "/placeholder.svg?height=60&width=120"
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Last Row (Centered if less than 4) */}
+                <div className="flex justify-center gap-8 mt-8">
+                  {[
+                    { name: "Festa Solar", logo: festa },
+                  ].map((partner, index) => (
+                    <div key={index} className="group w-[calc(25%-1rem)] min-w-[150px] max-w-[200px]">
+                      <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 partnership-zoom partnership-item hover:shadow-2xl border border-gray-200/50 hover:border-[#FF6B35]/50">
+                        <div className="w-full h-20 flex items-center justify-center">
+                          <Image
+                            src={partner.logo || "/placeholder.svg"}
+                            alt={partner.name}
+                            width={120}
+                            height={60}
+                            className="max-h-12 w-auto opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
+                            onError={(e) => {
+                              e.currentTarget.src = "/placeholder.svg?height=60&width=120"
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
 
-      {/* Ecosystem Partners - Hexagonal Layout */}
-      <section className="bg-[#E8E4C9]/30 py-24 scroll-animate">
-        <div className="container mx-auto px-4">
-          {/* Header */}
-          <div className="text-center mb-20 scroll-animate">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer relative inline-block">
-              Ecosystem Partners
-              <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#FF6B35] rounded-full animate-scale-in"></div>
-            </h2>
-          </div>
+          {/* Ecosystem Partners - Hexagonal Layout */}
+          <section className="bg-[#E8E4C9]/30 py-24 scroll-animate">
+            <div className="container mx-auto px-4">
+              {/* Header */}
+              <div className="text-center mb-20 scroll-animate">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer relative inline-block">
+                  Ecosystem Partners
+                  <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#FF6B35] rounded-full animate-scale-in"></div>
+                </h2>
+              </div>
 
-          {/* Hexagonal Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
-            {[
-              { name: "MSME", logo: msme },
-              { name: "NSTEDB", logo: aicte },
-              { name: "Institution's Innovation Council", logo: iic },
-              { name: "Startup India", logo: stindia },
-              { name: "Sustainable Development Goals", logo: sdg },
-              { name: "StartupTN", logo: sttn },
-              { name: "iTNT", logo: itnt },
-              { name: "TNRISE", logo: tnrise },
-            ].map((partner, index) => (
-              <div key={index} className={`group scroll-animate stagger-${(index % 6) + 1}`}>
-                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 partnership-zoom partnership-item hover:shadow-2xl border border-gray-200/50 hover:border-[#FF6B35]/50 h-28 flex items-center justify-center">
-                  <Image
-                    src={partner.logo || "/placeholder.svg"}
-                    alt={partner.name}
-                    width={120}
-                    height={60}
-                    className="max-h-12 w-auto opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
-                    onError={(e) => {
-                      e.currentTarget.src = "/placeholder.svg?height=60&width=120"
-                    }}
-                  />
+              {/* Hexagonal Grid */}
+              <div className="max-w-5xl mx-auto">
+                {/* Full Rows */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+                  {[
+                    { name: "MSME", logo: msme },
+                    { name: "NSTEDB", logo: aicte },
+                    { name: "Institution's Innovation Council", logo: iic },
+                    { name: "Startup India", logo: stindia },
+                    { name: "Sustainable Development Goals", logo: sdg },
+                    { name: "StartupTN", logo: sttn },
+                    { name: "iTNT", logo: itnt },
+                    { name: "TNRISE", logo: tnrise },
+                  ].map((partner, index) => (
+                    <div key={index} className="group">
+                      <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 partnership-zoom partnership-item hover:shadow-2xl border border-gray-200/50 hover:border-[#FF6B35]/50 h-28 flex items-center justify-center">
+                        <Image
+                          src={partner.logo || "/placeholder.svg"}
+                          alt={partner.name}
+                          width={120}
+                          height={60}
+                          className="max-h-12 w-auto opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
+                          onError={(e) => {
+                            e.currentTarget.src = "/placeholder.svg?height=60&width=120"
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Last Row (Centered if less than 4) */}
+                <div className="flex justify-center gap-8 mt-8">
+                  {[
+                    { name: "Edii-tn", logo: edii },
+                    { name: "idea-lab", logo: idealab },
+                  ].map((partner, index) => (
+                    <div key={index} className="group w-[calc(25%-1rem)] min-w-[150px] max-w-[200px]">
+                      <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 partnership-zoom partnership-item hover:shadow-2xl border border-gray-200/50 hover:border-[#FF6B35]/50 h-28 flex items-center justify-center">
+                        <Image
+                          src={partner.logo || "/placeholder.svg"}
+                          alt={partner.name}
+                          width={120}
+                          height={60}
+                          className="max-h-12 w-auto opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
+                          onError={(e) => {
+                            e.currentTarget.src = "/placeholder.svg?height=60&width=120"
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
+
 
       {/* Founder's Talk - Spotlight Layout */}
       <section className="bg-[#FFB347]/10 py-24 scroll-animate overflow-hidden">
@@ -1430,7 +1478,7 @@ export default function Home() {
             {/* Brand Section */}
             <div className="animate-slide-in-left stagger-1">
               <Image
-                src="/logo.png"
+                src="/company6.jpg"
                 alt="CITIL Logo"
                 width={140}
                 height={45}
@@ -1440,7 +1488,7 @@ export default function Home() {
                 }}
               />
               <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                Chennai Institute of Technology Innovation Labs - Empowering the next generation of entrepreneurs and
+                Chennai Institute of Technology Business Incubation Forum - Empowering the next generation of entrepreneurs and
                 innovators.
               </p>
               <div className="flex space-x-4">
@@ -1521,7 +1569,7 @@ export default function Home() {
           {/* Footer Bottom */}
           <div className="border-t border-[#3a3a3a] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm animate-fade-in">
             <div>
-              &copy; {new Date().getFullYear()} Chennai Institute of Technology Innovation Labs. All rights reserved.
+              &copy; {new Date().getFullYear()} Chennai Institute of Technology Business Incubation Forum. All rights reserved.
             </div>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="hover:text-[#FFB347] transition-colors duration-300">
