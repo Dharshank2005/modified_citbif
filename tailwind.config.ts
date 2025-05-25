@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: ["class"],
@@ -21,7 +21,7 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: "#FFB3471A", // ✅ original background restored
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -66,14 +66,30 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        neonGlow: {
+          "0%, 100%": {
+            boxShadow:
+              "0 0 5px #fff, 0 0 10px #FF6B35, 0 0 20px #FF6B35, 0 0 40px #FF6B35",
+          },
+          "50%": {
+            boxShadow:
+              "0 0 10px #fff, 0 0 20px #FFB347, 0 0 30px #FF6B35, 0 0 50px #FF6B35",
+          },
+        },
+        shine: {
+          "0%": { backgroundPosition: "-100%" },
+          "100%": { backgroundPosition: "200%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        neonGlow: "neonGlow 2s ease-in-out infinite",
+        shine: "shine 2s linear infinite",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
 
-export default config
+export default config;
