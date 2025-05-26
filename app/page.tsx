@@ -37,7 +37,25 @@ import idealab from "../public/idealab.png"
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
-  const [currentFocusSlide, setCurrentFocusSlide] = useState(0);
+  const [currentFocusSlide, setCurrentFocusSlide] = useState(0)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+
+  useEffect(() => {
+    if (!isAutoPlaying) return
+
+    const interval = setInterval(() => {
+      setCurrentFocusSlide((prev) => (prev === 1 ? 0 : 1))
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [isAutoPlaying])
+
+  const handleSlideChange = (slide: number) => {
+    setCurrentFocusSlide(slide)
+    setIsAutoPlaying(false)
+    // Resume auto-play after 10 seconds of manual interaction
+    setTimeout(() => setIsAutoPlaying(true), 10000)
+  }
 
   const focusAreas = [
     { name: "Electric Vehicle", icon: "🚗" },
@@ -177,7 +195,7 @@ export default function Home() {
       name: "AREON",
       role: "Founder, AREON Networks",
       image: "/founder3.png",
-      text: "The support from CITIL has been instrumental in our growth journey. Their mentorship and resources have been invaluable.",
+      text: "The support from CITBIF has been instrumental in our growth journey. Their mentorship and resources have been invaluable.",
     },
   ];
 
@@ -219,13 +237,38 @@ export default function Home() {
     }
   };
 
+  const partners = [
+    { name: "KUKA", logo: kuka },
+    { name: "Dassault", logo: dassault },
+    { name: "Bonfiglioli", logo: bonfiglioli },
+    { name: "Fronius", logo: fronius },
+    { name: "CyberX", logo: cyberx },
+    { name: "SEIndia", logo: sindia },
+    { name: "Zoho", logo: zoho },
+    { name: "Buddi AI", logo: buddi },
+    { name: "Festa Solar", logo: festa },
+  ];
+
+  const copartners = [
+    { name: "MSME", logo: msme },
+    { name: "NSTEDB", logo: aicte },
+    { name: "Institution's Innovation Council", logo: iic },
+    { name: "Startup India", logo: stindia },
+    { name: "Sustainable Development Goals", logo: sdg },
+    { name: "StartupTN", logo: sttn },
+    { name: "iTNT", logo: itnt },
+    { name: "TNRISE", logo: tnrise },
+    { name: "Edii-tn", logo: edii },
+    { name: "idea-lab", logo: idealab },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#FFB347] to-[#E8E4C9] text-gray-800 overflow-x-hidden">
       {/* Header */}
       <Navbar />
 
       {/* Hero Section - Asymmetric Layout */}
-      <section className="relative bg-gradient-to-r from-[#FFB347]/30 to-[#E8E4C9]/30 overflow-hidden min-h-screen flex items-center py-24">
+      <section className="relative bg-gradient-to-r from-[#FFB347]/30 to-[#E8E4C9]/30 overflow-hidden flex items-center py-16">
         <div className="absolute inset-0 bg-[url('/grid-pattern.png')] opacity-10 animate-pulse-glow"></div>
 
         {/* Geometric Background Elements */}
@@ -235,7 +278,7 @@ export default function Home() {
           style={{ animationDelay: "1s" }}
         ></div>
 
-        <div className="container mx-auto px-4 py-24 md:py-32">
+        <div className="container mx-auto px-4 py-16 md:py-20">
           <div className="grid lg:grid-cols-12 gap-8 items-center">
             {/* Left Content - 7 columns */}
             <div className="lg:col-span-7 space-y-8 z-10">
@@ -378,22 +421,22 @@ export default function Home() {
       </section>
 
       {/* Objectives Section - Enhanced Masonry Grid Layout */}
-<section className="bg-[#E8E4C9]/30 py-24 scroll-animate relative overflow-hidden">
+<section className="bg-[#E8E4C9]/30 py-20 scroll-animate relative overflow-hidden">
   {/* Background Decorative Elements */}
-  <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-[#FF6B35]/5 to-transparent rounded-full blur-3xl"></div>
-  <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-[#FFB347]/5 to-transparent rounded-full blur-3xl"></div>
+  <div className="absolute top-0 left-0 w-80 h-80 bg-gradient-to-br from-[#FF6B35]/5 to-transparent rounded-full blur-3xl"></div>
+  <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-tl from-[#FFB347]/5 to-transparent rounded-full blur-3xl"></div>
 
   <div className="container mx-auto px-4 relative z-10">
     {/* Header */}
-    <div className="text-center mb-20 scroll-animate">
-      <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer relative inline-block">
+    <div className="text-center mb-16 scroll-animate">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1B120A] text-shimmer relative inline-block">
         Objectives of CITBIF
-        <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#FF6B35] rounded-full animate-scale-in"></div>
+        <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-[#FF6B35] rounded-full animate-scale-in"></div>
       </h2>
     </div>
 
-    {/* Enhanced Equal-size Grid */}
-    <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+    {/* Grid */}
+    <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
       {[
         {
           icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
@@ -414,22 +457,17 @@ export default function Home() {
       ].map((objective, index) => (
         <div
           key={index}
-          className={`bg-[#1B120A] p-8 lg:p-10 rounded-3xl border-2 border-[#FFB347]/20 hover:border-[#FF6B35]/60 transition-all duration-700 group shadow-2xl card-hover hover-lift scroll-animate stagger-${
-            index + 1
-          } relative overflow-hidden backdrop-blur-sm min-h-[320px] flex flex-col`}
+          className={`bg-[#1B120A] p-6 lg:p-6 rounded-2xl border-2 border-[#FFB347]/20 hover:border-[#FF6B35]/60 transition-all duration-700 group shadow-2xl card-hover hover-lift scroll-animate stagger-${index + 1} relative overflow-hidden backdrop-blur-sm min-h-[260px] flex flex-col`}
         >
-          {/* Enhanced Background Pattern */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-radial from-[#FF6B35]/15 via-[#FFB347]/8 to-transparent rounded-bl-full transition-all duration-700 group-hover:scale-150 group-hover:rotate-12"></div>
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-radial from-[#FFB347]/10 to-transparent rounded-tr-full transition-all duration-700 group-hover:scale-125"></div>
-          
-          {/* Animated Border Glow */}
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[#FF6B35]/20 via-transparent to-[#FFB347]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm"></div>
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-radial from-[#FF6B35]/15 via-[#FFB347]/8 to-transparent rounded-bl-full transition-all duration-700 group-hover:scale-150 group-hover:rotate-12"></div>
+          <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-radial from-[#FFB347]/10 to-transparent rounded-tr-full transition-all duration-700 group-hover:scale-125"></div>
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#FF6B35]/20 via-transparent to-[#FFB347]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm"></div>
 
           <div className="relative z-10 flex flex-col h-full">
-            <div className="flex items-start gap-6 flex-1">
-              <div className="bg-gradient-to-br from-[#FF6B35]/25 to-[#FFB347]/25 p-5 rounded-2xl group-hover:bg-gradient-to-br group-hover:from-[#FF6B35]/40 group-hover:to-[#FFB347]/40 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 flex-shrink-0 shadow-lg backdrop-blur-sm border border-[#FF6B35]/20">
+            <div className="flex items-start gap-4 flex-1">
+              <div className="bg-gradient-to-br from-[#FF6B35]/25 to-[#FFB347]/25 p-4 rounded-xl group-hover:from-[#FF6B35]/40 group-hover:to-[#FFB347]/40 transition-all duration-500 group-hover:scale-105 group-hover:rotate-3 flex-shrink-0 shadow-lg backdrop-blur-sm border border-[#FF6B35]/20">
                 <svg
-                  className="w-12 h-12 text-[#FF6B35] transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 filter drop-shadow-lg"
+                  className="w-9 h-9 text-[#FF6B35] transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 filter drop-shadow-lg"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -438,86 +476,26 @@ export default function Home() {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2.5}
+                    strokeWidth={2}
                     d={objective.icon}
                   />
                 </svg>
               </div>
               <div className="flex-1 flex flex-col justify-center">
-                <p className="text-white text-lg lg:text-xl leading-relaxed group-hover:text-gray-100 transition-all duration-500 group-hover:translate-x-2">
+                <p className="text-white text-base lg:text-lg leading-relaxed group-hover:text-gray-100 transition-all duration-500 group-hover:translate-x-2">
                   {objective.text}
                 </p>
               </div>
             </div>
-            
-            {/* Subtle accent line */}
-            <div className="mt-6 h-0.5 bg-gradient-to-r from-[#FF6B35]/50 to-[#FFB347]/50 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
+            <div className="mt-4 h-0.5 bg-gradient-to-r from-[#FF6B35]/50 to-[#FFB347]/50 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
           </div>
-
-          {/* Hover Shine Effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
         </div>
       ))}
     </div>
   </div>
-  <style jsx>{`
-  .text-shimmer {
-    background: linear-gradient(135deg, #1B120A 0%, #FF6B35 50%, #1B120A 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 3s ease-in-out infinite;
-  }
-  
-  @keyframes shimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-  
-  .card-hover {
-    transition: all 0.7s cubic-bezier(0.23, 1, 0.320, 1);
-  }
-  
-  .card-hover:hover {
-    transform: translateY(-16px) scale(1.02);
-    box-shadow: 0 32px 64px -12px rgba(255, 107, 53, 0.4), 
-                0 0 0 1px rgba(255, 107, 53, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
-  
-  .scroll-animate {
-    opacity: 0;
-    transform: translateY(50px);
-    animation: slideUp 0.8s ease-out forwards;
-  }
-  
-  @keyframes slideUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
-  
-  .animate-scale-in {
-    animation: scaleIn 0.6s ease-out 0.5s both;
-  }
-  
-  @keyframes scaleIn {
-    from { transform: translateX(-50%) scaleX(0); }
-    to { transform: translateX(-50%) scaleX(1); }
-  }
-
-  .bg-gradient-radial {
-    background: radial-gradient(circle, var(--tw-gradient-stops));
-  }
-`}</style>
 </section>
+
 
       {/* Vision & Mission - Side by Side Cards */}
       <section className="bg-[#FFB347]/10 py-24 scroll-animate">
@@ -579,140 +557,140 @@ export default function Home() {
       {/* Focus Areas - Horizontal Slider */}
       {/* Focus Areas - Horizontal Slider */}
       <section className="bg-[#E8E4C9]/30 py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/tech-pattern.png')] opacity-5 animate-pulse"></div>
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] relative inline-block">
-            Focus Areas
-            <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] rounded-full"></div>
-          </h2>
-          <p className="text-[#1B120A] max-w-3xl mx-auto font-medium text-xl mt-6">
-            Our primary focus area is in the Deeptech domain, but not limited to any one specific sector
-          </p>
-        </div>
+  <div className="absolute inset-0 bg-[url('/tech-pattern.png')] opacity-5 animate-pulse"></div>
+  <div className="container mx-auto px-4 relative z-10">
+    {/* Header */}
+    <div className="text-center mb-20">
+      <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] relative inline-block">
+        Focus Areas
+        <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] rounded-full"></div>
+      </h2>
+      <p className="text-[#1B120A] max-w-3xl mx-auto font-medium text-xl mt-6">
+        Our primary focus area is in the Deeptech domain, but not limited to any one specific sector
+      </p>
+    </div>
 
-        {/* Horizontal Slider */}
-        <div className="relative overflow-hidden rounded-3xl bg-[#1B120A]/5 p-8">
-          <div className="relative h-80">
-            <div
-              className="flex transition-transform duration-1000 ease-in-out"
-              style={{
-                transform: `translateX(-${currentFocusSlide * 100}%)`,
-              }}
-            >
-              {/* Slide 1 - First 8 items */}
-              <div className="w-full flex-shrink-0 grid grid-cols-2 md:grid-cols-4 gap-6 px-4">
-                {focusAreas.slice(0, 8).map((area, index) => (
-                  <div key={index} className="group" style={{ perspective: '1000px' }}>
-                    <div 
-                      className="relative w-full h-32 transition-transform duration-700 group-hover:rotate-y-180"
-                      style={{ 
-                        transformStyle: 'preserve-3d',
-                        transform: 'rotateY(0deg)'
-                      }}
-                    >
-                      {/* Front of card */}
-                      <div 
-                        className="absolute inset-0 bg-[#1B120A] rounded-2xl border border-[#FFB347]/50 flex flex-col items-center justify-center p-4 shadow-lg"
-                        style={{ backfaceVisibility: 'hidden' }}
-                      >
-                        <div className="w-12 h-12 bg-gradient-to-br from-[#FF6B35]/20 to-[#FFB347]/20 rounded-2xl flex items-center justify-center mb-3">
-                          <div className="text-2xl">{area.icon}</div>
-                        </div>
-                        <h3 className="text-sm font-semibold text-white text-center">{area.name}</h3>
-                      </div>
+    {/* Horizontal Slider */}
+    <div className="relative overflow-hidden rounded-3xl bg-[#1B120A]/5 p-8">
+      <div className="relative h-80">
+        <div
+          className="flex transition-transform duration-1000 ease-in-out"
+          style={{
+            transform: `translateX(-${currentFocusSlide * 100}%)`,
+          }}
+        >
+          {/* Slide 1 - First 8 items */}
+          <div className="w-full flex-shrink-0 grid grid-cols-2 md:grid-cols-4 gap-6 px-4">
+            {focusAreas.slice(0, 8).map((area, index) => (
+              <div key={index} className="group" style={{ perspective: '1000px' }}>
+                <div
+                  className="relative w-full h-32 transition-transform duration-700 group-hover:rotate-y-180"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transform: 'rotateY(0deg)'
+                  }}
+                >
+                  {/* Front of card */}
+                  <div
+                    className="absolute inset-0 bg-[#1B120A] rounded-2xl border border-[#FFB347]/50 flex flex-col items-center justify-center p-4 shadow-lg"
+                    style={{ backfaceVisibility: 'hidden' }}
+                  >
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#FF6B35]/20 to-[#FFB347]/20 rounded-2xl flex items-center justify-center mb-3">
+                      <div className="text-2xl">{area.icon}</div>
+                    </div>
+                    <h3 className="text-sm font-semibold text-white text-center">{area.name}</h3>
+                  </div>
 
-                      {/* Back of card */}
-                      <div 
-                        className="absolute inset-0 bg-gradient-to-br from-[#FF6B35] to-[#FFB347] rounded-2xl flex items-center justify-center p-4 shadow-lg"
-                        style={{ 
-                          backfaceVisibility: 'hidden',
-                          transform: 'rotateY(180deg)'
-                        }}
-                      >
-                        <div className="text-center">
-                          <div className="text-3xl mb-2">{area.icon}</div>
-                          <h3 className="text-sm font-bold text-white">{area.name}</h3>
-                        </div>
-                      </div>
+                  {/* Back of card */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-br from-[#FF6B35] to-[#FFB347] rounded-2xl flex items-center justify-center p-4 shadow-lg"
+                    style={{
+                      backfaceVisibility: 'hidden',
+                      transform: 'rotateY(180deg)'
+                    }}
+                  >
+                    <div className="text-center">
+                      <div className="text-3xl mb-2">{area.icon}</div>
+                      <h3 className="text-sm font-bold text-white">{area.name}</h3>
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
-
-              {/* Slide 2 - Next 8 items */}
-              <div className="w-full flex-shrink-0 grid grid-cols-2 md:grid-cols-4 gap-6 px-4">
-                {focusAreas.slice(8, 16).map((area, index) => (
-                  <div key={index + 8} className="group" style={{ perspective: '1000px' }}>
-                    <div 
-                      className="relative w-full h-32 transition-transform duration-700 group-hover:rotate-y-180"
-                      style={{ 
-                        transformStyle: 'preserve-3d',
-                        transform: 'rotateY(0deg)'
-                      }}
-                    >
-                      {/* Front of card */}
-                      <div 
-                        className="absolute inset-0 bg-[#1B120A] rounded-2xl border border-[#FFB347]/50 flex flex-col items-center justify-center p-4 shadow-lg"
-                        style={{ backfaceVisibility: 'hidden' }}
-                      >
-                        <div className="w-12 h-12 bg-gradient-to-br from-[#FF6B35]/20 to-[#FFB347]/20 rounded-2xl flex items-center justify-center mb-3">
-                          <div className="text-2xl">{area.icon}</div>
-                        </div>
-                        <h3 className="text-sm font-semibold text-white text-center">{area.name}</h3>
-                      </div>
-
-                      {/* Back of card */}
-                      <div 
-                        className="absolute inset-0 bg-gradient-to-br from-[#FF6B35] to-[#FFB347] rounded-2xl flex items-center justify-center p-4 shadow-lg"
-                        style={{ 
-                          backfaceVisibility: 'hidden',
-                          transform: 'rotateY(180deg)'
-                        }}
-                      >
-                        <div className="text-center">
-                          <div className="text-3xl mb-2">{area.icon}</div>
-                          <h3 className="text-sm font-bold text-white">{area.name}</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Slider Indicators */}
-          <div className="flex justify-center mt-8 space-x-3">
-            {[0, 1].map((slide) => (
-              <button
-                key={slide}
-                onClick={() => setCurrentFocusSlide(slide)}
-                className={`w-4 h-4 rounded-full transition-all duration-300 ${
-                  currentFocusSlide === slide
-                    ? "bg-[#FF6B35] scale-125 shadow-lg"
-                    : "bg-[#FFB347]/50 hover:bg-[#FFB347] hover:scale-110"
-                }`}
-              />
+          {/* Slide 2 - Next 8 items */}
+          <div className="w-full flex-shrink-0 grid grid-cols-2 md:grid-cols-4 gap-6 px-4">
+            {focusAreas.slice(8, 16).map((area, index) => (
+              <div key={index + 8} className="group" style={{ perspective: '1000px' }}>
+                <div
+                  className="relative w-full h-32 transition-transform duration-700 group-hover:rotate-y-180"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transform: 'rotateY(0deg)'
+                  }}
+                >
+                  {/* Front of card */}
+                  <div
+                    className="absolute inset-0 bg-[#1B120A] rounded-2xl border border-[#FFB347]/50 flex flex-col items-center justify-center p-4 shadow-lg"
+                    style={{ backfaceVisibility: 'hidden' }}
+                  >
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#FF6B35]/20 to-[#FFB347]/20 rounded-2xl flex items-center justify-center mb-3">
+                      <div className="text-2xl">{area.icon}</div>
+                    </div>
+                    <h3 className="text-sm font-semibold text-white text-center">{area.name}</h3>
+                  </div>
+
+                  {/* Back of card */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-br from-[#FF6B35] to-[#FFB347] rounded-2xl flex items-center justify-center p-4 shadow-lg"
+                    style={{
+                      backfaceVisibility: 'hidden',
+                      transform: 'rotateY(180deg)'
+                    }}
+                  >
+                    <div className="text-center">
+                      <div className="text-3xl mb-2">{area.icon}</div>
+                      <h3 className="text-sm font-bold text-white">{area.name}</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </div>
 
-      <style jsx>{`
-        .group:hover > div {
-          transform: rotateY(180deg) !important;
-        }
-      `}</style>
-    </section>
+      {/* Slider Indicators */}
+      <div className="flex justify-center mt-8 space-x-3">
+        {[0, 1].map((slide) => (
+          <button
+            key={slide}
+            onClick={() => setCurrentFocusSlide(slide)}
+            className={`w-4 h-4 rounded-full transition-all duration-300 ${
+              currentFocusSlide === slide
+                ? "bg-[#FF6B35] scale-125 shadow-lg"
+                : "bg-[#FFB347]/50 hover:bg-[#FFB347] hover:scale-110"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <style jsx>{`
+    .group:hover > div {
+      transform: rotateY(180deg) !important;
+    }
+  `}</style>
+</section>
+
 
       {/* Success Formula - Circular Layout */}
       {/* Success Formula - Circular Layout */}
-      <section className="bg-gradient-to-br from-[#FFA726] via-[#FFB74D] to-[#FFCC80] py-24 relative overflow-hidden">
+      <section className="bg-[#E8EEEE]/30 py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/success-pattern.png')] opacity-5 animate-pulse"></div>
       <div className="container mx-auto px-4 relative z-10">
-        
         {/* Header */}
         <div className="text-center mb-20 scroll-animate">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer relative inline-block">
@@ -739,14 +717,14 @@ export default function Home() {
                   "0 0 10px #FF6B35, 0 0 20px #FFB347, 0 0 30px #FF6B35",
               }}
             >
-              {/* Glow Border Layer */}
-              <div className="absolute inset-0 rounded-[30px] border border-orange-400 blur-sm opacity-60 group-hover:opacity-100 group-hover:border-orange-300 transition-all duration-300 animate-pulse pointer-events-none"></div>
+              {/* Glow Border Layer - Very Slow Pulse */}
+              <div className="absolute inset-0 rounded-[30px] border border-orange-400 blur-sm opacity-60 group-hover:opacity-100 group-hover:border-orange-300 transition-all duration-300 animate-slow-pulse pointer-events-none"></div>
 
               {/* Enhanced Glow on Hover */}
               <div className="absolute inset-0 rounded-[30px] bg-gradient-to-r from-orange-400/0 via-orange-300/0 to-orange-400/0 group-hover:from-orange-400/20 group-hover:via-orange-300/30 group-hover:to-orange-400/20 transition-all duration-500 pointer-events-none"></div>
 
-              {/* Shine overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-white/20 animate-pulse bg-[length:200%_100%] rounded-[30px] transition-all duration-300 pointer-events-none"></div>
+              {/* Shine overlay - Very Slow Pulse */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-white/20 animate-slow-pulse bg-[length:200%_100%] rounded-[30px] transition-all duration-300 pointer-events-none"></div>
 
               <div className="z-10 text-5xl mb-2 group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
               <h3 className="text-center font-semibold text-sm md:text-base text-white z-10 group-hover:text-orange-100 transition-colors duration-300">
@@ -756,6 +734,20 @@ export default function Home() {
           ))}
         </div>
       </div>
+      <style jsx>{`
+        @keyframes slow-pulse {
+          0%, 100% {
+            opacity: 0.6;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+        
+        .animate-slow-pulse {
+          animation: slow-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+      `}</style>
     </section>
 
 
@@ -923,7 +915,7 @@ export default function Home() {
                 name: "Dr. K. Manivannan",
                 role: "National Expert & Assessor",
                 image: test1,
-                text: "Driving and revolutionizing faculty innovation, CITIL works to inspire faculty to explore their innovative ideas and convert them into tangible products for the society's betterment.",
+                text: "Driving and revolutionizing faculty innovation, CITBIF works to inspire faculty to explore their innovative ideas and convert them into tangible products for the society's betterment.",
               },
               {
                 name: "Dr. Vivek Menon",
@@ -935,7 +927,7 @@ export default function Home() {
                 name: "Anil Kumar Kattera",
                 role: "Head Innovation Lead",
                 image: test3,
-                text: "An outstanding educational institution that nurtures innovation. I was impressed with the level of talent here and the work of CITIL team in creating an environment of innovation.",
+                text: "An outstanding educational institution that nurtures innovation. I was impressed with the level of talent here and the work of CITBIF team in creating an environment of innovation.",
               },
             ].map((testimonial, index) => (
               <div
@@ -987,67 +979,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Corporate Partnerships - Flowing Grid */}
-          <section className="bg-[#FFB347]/10 py-24 relative overflow-hidden scroll-animate">
-            <div className="absolute inset-0 bg-[url('/partners-bg.png')] opacity-5 animate-pulse"></div>
+          {/* Corporate Partnerships - Flowing Grid */}
+          <section className="bg-orange-100/10 py-24 relative overflow-hidden scroll-animate">
+            {/* Background Gradient */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="w-full h-full bg-gradient-to-r from-orange-200 to-orange-300 animate-pulse"></div>
+            </div>
+
             <div className="container mx-auto px-4 relative z-10">
               {/* Header */}
-              <div className="text-center mb-20 scroll-animate">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer relative inline-block">
+              <div className="text-center mb-20">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-amber-900 relative inline-block">
                   Corporate Partnerships and Collaborations
-                  <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#FF6B35] rounded-full animate-scale-in"></div>
+                  <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-orange-600 rounded-full"></div>
                 </h2>
               </div>
 
-              {/* Flowing Grid */}
-              <div className="max-w-6xl mx-auto">
-                {/* Full Rows */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
-                  {[
-                    { name: "KUKA", logo: kuka },
-                    { name: "Dassault", logo: dassault },
-                    { name: "Bonfiglioli", logo: bonfiglioli },
-                    { name: "Fronius", logo: fronius },
-                    { name: "CyberX", logo: cyberx },
-                    { name: "SEIndia", logo: sindia },
-                    { name: "Zoho", logo: zoho },
-                    { name: "Buddi AI", logo: buddi },
-                  ].map((partner, index) => (
-                    <div key={index} className="group">
-                      <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 partnership-zoom partnership-item hover:shadow-2xl border border-gray-200/50 hover:border-[#FF6B35]/50">
+              {/* Partner Carousel */}
+              <div className="relative max-w-7xl mx-auto overflow-hidden">
+                <div className="flex gap-8 w-max carousel-track">
+                  {[...partners, ...partners].map((partner, index) => (
+                    <div key={`${partner.name}-${index}`} className="group flex-shrink-0 w-64">
+                      <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl border border-gray-200/50 hover:border-orange-600/50 hover:scale-105 hover:-translate-y-2">
                         <div className="w-full h-20 flex items-center justify-center">
                           <Image
-                            src={partner.logo || "/placeholder.svg"}
+                            src={partner.logo}
                             alt={partner.name}
-                            width={120}
-                            height={60}
                             className="max-h-12 w-auto opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
                             onError={(e) => {
-                              e.currentTarget.src = "/placeholder.svg?height=60&width=120"
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Last Row (Centered if less than 4) */}
-                <div className="flex justify-center gap-8 mt-8">
-                  {[
-                    { name: "Festa Solar", logo: festa },
-                  ].map((partner, index) => (
-                    <div key={index} className="group w-[calc(25%-1rem)] min-w-[150px] max-w-[200px]">
-                      <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 partnership-zoom partnership-item hover:shadow-2xl border border-gray-200/50 hover:border-[#FF6B35]/50">
-                        <div className="w-full h-20 flex items-center justify-center">
-                          <Image
-                            src={partner.logo || "/placeholder.svg"}
-                            alt={partner.name}
-                            width={120}
-                            height={60}
-                            className="max-h-12 w-auto opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
-                            onError={(e) => {
-                              e.currentTarget.src = "/placeholder.svg?height=60&width=120"
+                              e.currentTarget.src = "/placeholder.svg?height=60&width=120";
                             }}
                           />
                         </div>
@@ -1057,75 +1017,85 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            <style jsx>{`
+              @keyframes scroll {
+                0% {
+                  transform: translateX(0);
+                }
+                100% {
+                  transform: translateX(-50%);
+                }
+              }
+
+              .carousel-track {
+                animation: scroll 30s linear infinite;
+              }
+
+              .carousel-track:hover {
+                animation-play-state: paused;
+              }
+            `}</style>
           </section>
+
 
           {/* Ecosystem Partners - Hexagonal Layout */}
-          <section className="bg-[#E8E4C9]/30 py-24 scroll-animate">
-            <div className="container mx-auto px-4">
-              {/* Header */}
-              <div className="text-center mb-20 scroll-animate">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer relative inline-block">
-                  Ecosystem Partners
-                  <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#FF6B35] rounded-full animate-scale-in"></div>
-                </h2>
-              </div>
+          <section className="bg-[#E8E4C9]/30 py-24 scroll-animate relative overflow-hidden">
+  <div className="container mx-auto px-4 relative z-10">
+    {/* Header */}
+    <div className="text-center mb-20 scroll-animate">
+      <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer relative inline-block">
+        Ecosystem Partners
+        <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#FF6B35] rounded-full animate-scale-in"></div>
+      </h2>
+    </div>
 
-              {/* Hexagonal Grid */}
-              <div className="max-w-5xl mx-auto">
-                {/* Full Rows */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
-                  {[
-                    { name: "MSME", logo: msme },
-                    { name: "NSTEDB", logo: aicte },
-                    { name: "Institution's Innovation Council", logo: iic },
-                    { name: "Startup India", logo: stindia },
-                    { name: "Sustainable Development Goals", logo: sdg },
-                    { name: "StartupTN", logo: sttn },
-                    { name: "iTNT", logo: itnt },
-                    { name: "TNRISE", logo: tnrise },
-                  ].map((partner, index) => (
-                    <div key={index} className="group">
-                      <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 partnership-zoom partnership-item hover:shadow-2xl border border-gray-200/50 hover:border-[#FF6B35]/50 h-28 flex items-center justify-center">
-                        <Image
-                          src={partner.logo || "/placeholder.svg"}
-                          alt={partner.name}
-                          width={120}
-                          height={60}
-                          className="max-h-12 w-auto opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
-                          onError={(e) => {
-                            e.currentTarget.src = "/placeholder.svg?height=60&width=120"
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+    {/* Carousel */}
+    <div className="overflow-hidden group">
+      <div className="flex gap-8 w-max carousel-track">
+        {[...copartners, ...copartners].map((partner, index) => (
+          <div
+            key={`${partner.name}-${index}`}
+            className="group flex-shrink-0 w-48 h-28 bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl border border-gray-200/50 hover:border-[#FF6B35]/50 flex items-center justify-center partnership-zoom partnership-item hover:scale-105 hover:-translate-y-2"
+          >
+            <Image
+              src={partner.logo || "/placeholder.svg"}
+              alt={partner.name}
+              width={120}
+              height={60}
+              className="max-h-12 w-auto opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
+              onError={(e) => {
+                e.currentTarget.src = "/placeholder.svg";
+              }}
+              unoptimized
+              priority={false}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 
-                {/* Last Row (Centered if less than 4) */}
-                <div className="flex justify-center gap-8 mt-8">
-                  {[
-                    { name: "Edii-tn", logo: edii },
-                    { name: "idea-lab", logo: idealab },
-                  ].map((partner, index) => (
-                    <div key={index} className="group w-[calc(25%-1rem)] min-w-[150px] max-w-[200px]">
-                      <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all duration-500 partnership-zoom partnership-item hover:shadow-2xl border border-gray-200/50 hover:border-[#FF6B35]/50 h-28 flex items-center justify-center">
-                        <Image
-                          src={partner.logo || "/placeholder.svg"}
-                          alt={partner.name}
-                          width={120}
-                          height={60}
-                          className="max-h-12 w-auto opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
-                          onError={(e) => {
-                            e.currentTarget.src = "/placeholder.svg?height=60&width=120"
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
+  <style jsx>{`
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .carousel-track {
+      animation: scroll 40s linear infinite;
+    }
+
+    .carousel-track:hover {
+      animation-play-state: paused;
+    }
+  `}</style>
+</section>
+
 
 
       {/* Founder's Talk - Spotlight Layout */}
@@ -1429,7 +1399,7 @@ export default function Home() {
                       {
                         icon: Mail,
                         title: "Email",
-                        content: ["info@citil.in", "support@citil.in"],
+                        content: ["info@citbif.in", "support@citbif.in"],
                       },
                       {
                         icon: Phone,
@@ -1479,7 +1449,7 @@ export default function Home() {
             <div className="animate-slide-in-left stagger-1">
               <Image
                 src="/company6.jpg"
-                alt="CITIL Logo"
+                alt="CITBIF Logo"
                 width={140}
                 height={45}
                 className="h-12 w-auto mb-6 hover:scale-110 transition-transform duration-300"
@@ -1551,10 +1521,10 @@ export default function Home() {
               </address>
               <div className="space-y-2">
                 <a
-                  href="mailto:info@citil.in"
+                  href="mailto:info@citbif.in"
                   className="text-[#FFB347] hover:underline text-sm transition-all duration-300 hover:scale-105 animate-fade-in stagger-2 block"
                 >
-                  info@citil.in
+                  info@citbif.in
                 </a>
                 <a
                   href="tel:+914424781111"
