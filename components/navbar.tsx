@@ -31,7 +31,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center animate-slide-in-left">
           <div className="relative">
             <Image
-              src="/logo.png"
+              src="/company6.jpg"
               alt="CITIL Logo"
               width={120}
               height={40}

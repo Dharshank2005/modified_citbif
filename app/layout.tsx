@@ -7,7 +7,7 @@ import { Providers } from "../app/provider"   // ← client-only wrapper
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "CITIL - Chennai Institute of Technology Innovation Labs",
+  title: "CITIL - Chennai Institute of Technology Business Incubation Forum",
   description: "Empowering the next generation of entrepreneurs and innovators",
 }
 
