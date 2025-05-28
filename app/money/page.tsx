@@ -1,211 +1,313 @@
 "use client"
-import { DollarSign, TrendingUp, PiggyBank, CreditCard, CheckCircle } from "lucide-react"
+
+import Image from "next/image"
+import { DollarSign, TrendingUp, Target, ChevronRight, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react"
 import Navbar from "@/components/navbar"
-import PageTransition from "@/components/page-transition"
-import Link from "next/link"
 
-export default function Money() {
+export default function MoneyPage() {
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
+
+  const fundingSchemes = [
+    {
+      title: "CITIL Innovation Grant",
+      amount: "₹10 Lakhs",
+      description: "Seed funding for innovative startups with high potential",
+      eligibility: "Early-stage startups with MVP",
+      duration: "12 months",
+      icon: "💡",
+      color: "from-[#FF6B35] to-[#FFB347]",
+    },
+    {
+      title: "IVP Grants",
+      amount: "₹7 Lakhs",
+      description: "Industry Validation Program grants for market-ready products",
+      eligibility: "Startups with validated business model",
+      duration: "18 months",
+      icon: "🚀",
+      color: "from-[#FFB347] to-[#FF6B35]",
+    },
+    {
+      title: "Pre-Incubation Support",
+      amount: "₹2-5 Lakhs",
+      description: "Early-stage support for idea development and prototyping",
+      eligibility: "Students and faculty with innovative ideas",
+      duration: "6 months",
+      icon: "🌱",
+      color: "from-[#FF6B35] to-[#FFB347]",
+    },
+    {
+      title: "Acceleration Program",
+      amount: "₹15-25 Lakhs",
+      description: "Advanced funding for scaling and market expansion",
+      eligibility: "Growth-stage startups",
+      duration: "24 months",
+      icon: "📈",
+      color: "from-[#FFB347] to-[#FF6B35]",
+    },
+  ]
+
+  const benefitedCompanies = [
+    {
+      name: "Mechimed Technologies",
+      sector: "Medical Technology",
+      funding: "₹7 Lakhs",
+      description: "Revolutionary medical device for patient monitoring",
+      status: "Successfully Launched",
+      image: "/company-mechimed.jpg",
+    },
+    {
+      name: "Quazr Motors",
+      sector: "Electric Vehicles",
+      funding: "₹7 Lakhs",
+      description: "Innovative electric vehicle solutions for urban mobility",
+      status: "Market Ready",
+      image: "/company-quazr.jpg",
+    },
+    {
+      name: "Mam Industries",
+      sector: "Manufacturing",
+      funding: "₹7 Lakhs",
+      description: "Advanced manufacturing solutions using Industry 4.0",
+      status: "Scaling",
+      image: "/company-mam.jpg",
+    },
+    {
+      name: "Fuinn Tech",
+      sector: "AI/ML",
+      funding: "₹7 Lakhs",
+      description: "AI-powered solutions for business automation",
+      status: "Growing",
+      image: "/company-fuinn.jpg",
+    },
+  ]
+
+  const fundingProcess = [
+    {
+      step: "01",
+      title: "Application Submission",
+      description: "Submit your business plan and pitch deck through our online portal",
+      icon: "📝",
+    },
+    {
+      step: "02",
+      title: "Initial Screening",
+      description: "Our expert panel reviews applications for feasibility and innovation",
+      icon: "🔍",
+    },
+    {
+      step: "03",
+      title: "Pitch Presentation",
+      description: "Selected candidates present their ideas to our investment committee",
+      icon: "🎯",
+    },
+    {
+      step: "04",
+      title: "Due Diligence",
+      description: "Comprehensive evaluation of business model and market potential",
+      icon: "📊",
+    },
+    {
+      step: "05",
+      title: "Funding Decision",
+      description: "Final approval and funding disbursement with mentorship support",
+      icon: "✅",
+    },
+  ]
+
   return (
-    <PageTransition>
-      <div className="min-h-screen bg-gradient-to-r from-[#FFB347] to-[#E8E4C9] text-gray-800 overflow-x-hidden">
-        <Navbar />
+    <div className="min-h-screen bg-gradient-to-r from-[#FFB347] to-[#E8E4C9] text-gray-800 overflow-x-hidden">
+      <Navbar />
 
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-r from-[#FFB347]/30 to-[#E8E4C9]/30 overflow-hidden py-20">
-          <div className="absolute inset-0 bg-[url('/grid-pattern.png')] opacity-10 animate-pulse-glow"></div>
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight text-[#1B120A] animate-slide-in-left mb-6">
-              FUNDING & <span className="text-[#FF6B35] text-shimmer">FINANCIAL SUPPORT</span>
-            </h1>
-            <p className="text-xl text-[#1B120A] max-w-3xl mx-auto animate-slide-in-right">
-              Access comprehensive funding opportunities and financial resources to fuel your innovation journey
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-[#FFB347]/30 to-[#E8E4C9]/30 overflow-hidden py-20">
+        <div className="absolute inset-0 bg-[url('/grid-pattern.png')] opacity-10 animate-pulse-glow"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-16 animate-fade-in">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#1B120A] text-shimmer">Funding & Investment</h1>
+            <div className="w-32 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto mb-8 animate-scale-in"></div>
+            <p className="text-xl text-[#1B120A] max-w-4xl mx-auto leading-relaxed">
+              Empowering startups with comprehensive funding schemes and investment opportunities
             </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Funding Statistics */}
-        <section className="bg-[#FFB347]/10 py-20 scroll-animate">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[
-                { value: "₹2Cr+", label: "Total Funding Raised", icon: DollarSign },
-                { value: "60+", label: "Startups Funded", icon: TrendingUp },
-                { value: "₹50L", label: "Average Funding", icon: PiggyBank },
-                { value: "95%", label: "Success Rate", icon: CheckCircle },
-              ].map((stat, index) => (
-                <div
-                  key={index}
-                  className={`bg-[#1B120A] p-6 rounded-xl border border-[#FFB347]/50 text-center group hover:border-[#FF6B35] transition-all duration-500 shadow-lg hover-lift animate-pulse-glow scroll-animate stagger-${index + 1}`}
-                >
-                  <stat.icon className="w-8 h-8 text-[#FF6B35] mx-auto mb-4 group-hover:scale-125 transition-transform duration-300" />
-                  <div className="text-2xl md:text-3xl font-bold text-[#FF6B35] group-hover:scale-125 transition-all duration-500 animate-bounce-in">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-white mt-2 font-medium group-hover:text-[#FFB347] transition-colors duration-300">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
+      {/* Funding Schemes Section */}
+      <section className="bg-[#FFB347]/10 py-24">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-20 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">Our Funding Schemes</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto animate-scale-in"></div>
           </div>
-        </section>
-
-        {/* Funding Types */}
-        <section className="bg-[#E8E4C9]/30 py-20 scroll-animate">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16 scroll-animate">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1B120A] text-shimmer">Funding Opportunities</h2>
-              <div className="w-20 h-1 bg-[#FF6B35] mx-auto animate-scale-in"></div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Seed Funding",
-                  amount: "₹5L - ₹25L",
-                  description: "Early-stage funding for proof of concept and prototype development",
-                  features: [
-                    "Equity-based investment",
-                    "Mentorship included",
-                    "Market validation support",
-                    "Technical guidance",
-                  ],
-                  icon: "🌱",
-                },
-                {
-                  title: "Series A",
-                  amount: "₹25L - ₹1Cr",
-                  description: "Growth funding for market expansion and team building",
-                  features: ["Scaling operations", "Market expansion", "Team building", "Product enhancement"],
-                  icon: "🚀",
-                },
-                {
-                  title: "Bridge Funding",
-                  amount: "₹10L - ₹50L",
-                  description: "Short-term funding to bridge gaps between major funding rounds",
-                  features: ["Quick disbursement", "Flexible terms", "Operational support", "Strategic guidance"],
-                  icon: "🌉",
-                },
-              ].map((funding, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {fundingSchemes.map((scheme, index) => (
+              <div
+                key={index}
+                className={`bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift animate-slide-up stagger-${index + 1} relative overflow-hidden`}
+              >
                 <div
-                  key={index}
-                  className={`bg-[#1B120A] p-8 rounded-xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-lg card-hover hover-lift scroll-animate stagger-${index + 1}`}
-                >
-                  <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {funding.icon}
+                  className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${scheme.color} opacity-10 rounded-bl-full`}
+                ></div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                      {scheme.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-[#FF6B35] group-hover:text-[#FFB347] transition-colors duration-300">
+                        {scheme.title}
+                      </h3>
+                      <p className="text-3xl font-bold text-white">{scheme.amount}</p>
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold mb-2 text-[#FF6B35] group-hover:text-[#FFB347] transition-colors duration-300">
-                    {funding.title}
-                  </h3>
-                  <div className="text-xl font-semibold text-white mb-4">{funding.amount}</div>
-                  <p className="text-gray-300 mb-6 group-hover:text-gray-200 transition-colors duration-300">
-                    {funding.description}
+                  <p className="text-white mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                    {scheme.description}
                   </p>
-                  <ul className="space-y-2 mb-6">
-                    {funding.features.map((feature, idx) => (
-                      <li
-                        key={idx}
-                        className="flex items-center text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300"
-                      >
-                        <CheckCircle className="w-4 h-4 text-[#FF6B35] mr-2 flex-shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button className="w-full bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white btn-animate hover-lift">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Target className="h-4 w-4 text-[#FFB347]" />
+                      <span className="text-gray-300 text-sm">Eligibility: {scheme.eligibility}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <TrendingUp className="h-4 w-4 text-[#FFB347]" />
+                      <span className="text-gray-300 text-sm">Duration: {scheme.duration}</span>
+                    </div>
+                  </div>
+                  <Button className="w-full mt-6 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] hover:from-[#FF6B35]/90 hover:to-[#FFB347]/90 text-white rounded-xl btn-animate group">
                     Apply Now
+                    <ChevronRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </Button>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Financial Support Services */}
-        <section className="bg-[#FFB347]/10 py-20 scroll-animate">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16 scroll-animate">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1B120A] text-shimmer">
-                Financial Support Services
-              </h2>
-              <div className="w-20 h-1 bg-[#FF6B35] mx-auto animate-scale-in"></div>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { name: "Business Plan Development", icon: "📋", desc: "Professional business plan creation" },
-                { name: "Financial Modeling", icon: "📊", desc: "Comprehensive financial projections" },
-                { name: "Investor Pitch Deck", icon: "🎯", desc: "Compelling investor presentations" },
-                { name: "Due Diligence Support", icon: "🔍", desc: "Complete due diligence assistance" },
-                { name: "Legal Documentation", icon: "📄", desc: "Legal and compliance support" },
-                { name: "Tax Planning", icon: "💼", desc: "Strategic tax optimization" },
-                { name: "Grant Applications", icon: "🏆", desc: "Government grant assistance" },
-                { name: "Financial Advisory", icon: "💡", desc: "Ongoing financial guidance" },
-              ].map((service, index) => (
-                <div
-                  key={index}
-                  className={`bg-[#1B120A] p-6 rounded-xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 text-center group shadow-md card-hover hover-lift scroll-animate stagger-${(index % 6) + 1}`}
-                >
-                  <div className="text-3xl mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300">
-                    {service.icon}
+      {/* Benefited Companies Section */}
+      <section className="bg-[#E8E4C9]/30 py-24">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-20 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">Success Stories</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto animate-scale-in"></div>
+            <p className="text-xl text-[#1B120A] max-w-3xl mx-auto mt-6">
+              Companies that have successfully leveraged our funding programs
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {benefitedCompanies.map((company, index) => (
+              <div
+                key={index}
+                className={`bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift animate-bounce-in stagger-${index + 1} relative overflow-hidden`}
+              >
+                <div className="absolute -top-12 -right-12 w-32 h-32 bg-gradient-to-bl from-[#FF6B35]/10 to-transparent rounded-full"></div>
+                <div className="relative z-10">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FF6B35]/20 to-[#FFB347]/20 overflow-hidden group-hover:scale-110 transition-transform duration-300">
+                      <Image
+                        src={company.image || "/placeholder.svg"}
+                        alt={company.name}
+                        width={64}
+                        height={64}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = "/placeholder.svg?height=64&width=64"
+                        }}
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-[#FF6B35] mb-1 group-hover:text-[#FFB347] transition-colors duration-300">
+                        {company.name}
+                      </h3>
+                      <p className="text-[#FFB347] text-sm mb-2">{company.sector}</p>
+                      <div className="inline-flex items-center gap-1 bg-gradient-to-r from-[#FF6B35]/20 to-[#FFB347]/20 px-3 py-1 rounded-full">
+                        <DollarSign className="h-3 w-3 text-[#FF6B35]" />
+                        <span className="text-white text-xs font-semibold">{company.funding}</span>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="text-sm font-semibold text-white group-hover:text-[#FF6B35] transition-all duration-300 mb-2">
-                    {service.name}
-                  </h3>
-                  <p className="text-xs text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
-                    {service.desc}
+                  <p className="text-white mb-4 group-hover:text-gray-200 transition-colors duration-300">
+                    {company.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-green-400 text-sm font-semibold">{company.status}</span>
+                    <Button variant="ghost" size="sm" className="text-[#FFB347] hover:text-white hover:bg-[#FFB347]/20">
+                      Learn More
+                      <ExternalLink className="ml-1 h-3 w-3" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Funding Process Section */}
+      <section className="bg-[#FFB347]/10 py-24">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-20 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">Funding Process</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto animate-scale-in"></div>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            {fundingProcess.map((process, index) => (
+              <div key={index} className={`flex items-start gap-8 mb-12 animate-slide-in-left stagger-${index + 1}`}>
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#FF6B35] to-[#FFB347] rounded-full flex items-center justify-center text-white font-bold text-lg hover:scale-110 transition-transform duration-300">
+                    {process.step}
+                  </div>
+                </div>
+                <div className="flex-1 bg-[#1B120A] p-6 rounded-2xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group hover-lift">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                      {process.icon}
+                    </span>
+                    <h3 className="text-xl font-bold text-[#FF6B35] group-hover:text-[#FFB347] transition-colors duration-300">
+                      {process.title}
+                    </h3>
+                  </div>
+                  <p className="text-white group-hover:text-gray-200 transition-colors duration-300">
+                    {process.description}
                   </p>
                 </div>
-              ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-[#E8E4C9]/30 py-24">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-4xl mx-auto animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">
+              Ready to Secure Funding?
+            </h2>
+            <p className="text-xl text-[#1B120A] mb-8 leading-relaxed">
+              Take the first step towards transforming your innovative idea into a successful business
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button className="bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white rounded-full px-8 py-4 text-lg btn-animate hover-lift group">
+                Apply for Funding
+                <ChevronRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Button>
+              <Button
+                variant="outline"
+                className="border-2 border-[#FF6B35] text-[#FF6B35] hover:bg-[#FF6B35] hover:text-white rounded-full px-8 py-4 text-lg transition-all duration-300"
+              >
+                Schedule Consultation
+              </Button>
             </div>
           </div>
-        </section>
-
-        {/* Application Process */}
-        <section className="bg-[#E8E4C9]/30 py-20 scroll-animate">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16 scroll-animate">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1B120A] text-shimmer">Application Process</h2>
-              <div className="w-20 h-1 bg-[#FF6B35] mx-auto animate-scale-in"></div>
-            </div>
-
-            <div className="grid md:grid-cols-4 gap-8">
-              {[
-                {
-                  step: "01",
-                  title: "Submit Application",
-                  desc: "Complete our online application form with your business details",
-                },
-                { step: "02", title: "Initial Review", desc: "Our team reviews your application and business model" },
-                { step: "03", title: "Pitch Presentation", desc: "Present your idea to our investment committee" },
-                {
-                  step: "04",
-                  title: "Funding Decision",
-                  desc: "Receive funding decision and begin your journey with us",
-                },
-              ].map((process, index) => (
-                <div key={index} className={`text-center scroll-animate stagger-${index + 1}`}>
-                  <div className="bg-[#1B120A] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-[#FF6B35] group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-[#FF6B35] font-bold text-lg">{process.step}</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-[#1B120A] mb-2">{process.title}</h3>
-                  <p className="text-[#1B120A]/80">{process.desc}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center mt-12">
-              <Link href="/incubate">
-                <Button className="bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white px-8 py-3 btn-animate hover-lift group">
-                  Start Application Process
-                  <CreditCard className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
-      </div>
-    </PageTransition>
+        </div>
+      </section>
+    </div>
   )
 }
