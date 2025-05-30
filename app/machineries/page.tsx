@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { Cpu, Cog, Microscope, Wrench, ChevronRight, ExternalLink } from "lucide-react"
+import { Cpu, Cog, Microscope, Wrench, ChevronRight, ExternalLink, ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import Navbar from "@/components/navbar"
@@ -9,9 +9,27 @@ import Navbar from "@/components/navbar"
 export default function MachineriesPage() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
+  const [currentPartnerSlide, setCurrentPartnerSlide] = useState(0)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     setIsLoaded(true)
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+    }
+
+    window.addEventListener("mousemove", handleMouseMove)
+
+    // Auto-rotate partner slider
+    const interval = setInterval(() => {
+      setCurrentPartnerSlide((prev) => (prev + 1) % industryPartners.length)
+    }, 4000)
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove)
+      clearInterval(interval)
+    }
   }, [])
 
   const centersOfExcellence = [
@@ -27,6 +45,9 @@ export default function MachineriesPage() {
       image: "/lab-kuka.jpg",
       icon: "🤖",
       category: "Robotics",
+      established: "2020",
+      capacity: "50 Students",
+      equipment: "25+ Robots",
     },
     {
       name: "Center for Semiconductor Design Hub",
@@ -35,6 +56,9 @@ export default function MachineriesPage() {
       image: "/lab-semiconductor.jpg",
       icon: "💻",
       category: "Electronics",
+      established: "2019",
+      capacity: "40 Students",
+      equipment: "30+ Workstations",
     },
     {
       name: "Center for Advanced Welding Technology",
@@ -43,6 +67,9 @@ export default function MachineriesPage() {
       image: "/lab-welding.jpg",
       icon: "⚡",
       category: "Manufacturing",
+      established: "2021",
+      capacity: "30 Students",
+      equipment: "15+ Welding Units",
     },
     {
       name: "Center for 3D Printing and Additive Manufacturing",
@@ -51,6 +78,9 @@ export default function MachineriesPage() {
       image: "/lab-3d.jpg",
       icon: "🖨️",
       category: "Manufacturing",
+      established: "2020",
+      capacity: "35 Students",
+      equipment: "20+ 3D Printers",
     },
     {
       name: "Center for Mruby Research",
@@ -59,6 +89,9 @@ export default function MachineriesPage() {
       image: "/lab-mruby.jpg",
       icon: "💎",
       category: "Software",
+      established: "2022",
+      capacity: "25 Students",
+      equipment: "40+ Dev Boards",
     },
     {
       name: "WABCO-CIT-KYUTECH IoT Center",
@@ -67,6 +100,9 @@ export default function MachineriesPage() {
       image: "/lab-iot.jpg",
       icon: "📡",
       category: "IoT",
+      established: "2021",
+      capacity: "45 Students",
+      equipment: "50+ IoT Devices",
     },
   ]
 
@@ -90,24 +126,66 @@ export default function MachineriesPage() {
       description: "Having its office in our campus for robotics training and research",
       logo: "/partner-kuka.jpg",
       specialization: "Industrial Robotics",
+      partnership: "On-Campus Office",
+      projects: "15+ Active Projects",
+      since: "2019",
+      employees: "12+ Engineers",
+      achievements: ["Robot Training Center", "Industry 4.0 Solutions", "Automation Excellence"],
     },
     {
       name: "Fronius Welding",
       description: "Advanced welding, solar energy, and battery charging solutions",
       logo: "/partner-fronius.jpg",
       specialization: "Welding Technology",
+      partnership: "Research Center",
+      projects: "12+ Collaborations",
+      since: "2020",
+      employees: "8+ Specialists",
+      achievements: ["Welding Innovation Hub", "Solar Integration", "Green Technology"],
     },
     {
       name: "Bonfiglioli Academy",
       description: "Cutting-edge academy for real-world engineering projects",
       logo: "/partner-bonfiglioli.jpg",
       specialization: "Mechanical Systems",
+      partnership: "Training Academy",
+      projects: "20+ Training Programs",
+      since: "2021",
+      employees: "15+ Trainers",
+      achievements: ["Engineering Excellence", "Skill Development", "Industry Readiness"],
     },
     {
       name: "RANE NSK",
       description: "Material science collaboration with automotive focus",
       logo: "/partner-rane.jpg",
       specialization: "Material Science",
+      partnership: "R&D Collaboration",
+      projects: "8+ Research Projects",
+      since: "2022",
+      employees: "6+ Researchers",
+      achievements: ["Automotive Innovation", "Material Testing", "Quality Assurance"],
+    },
+    {
+      name: "Siemens Digital Factory",
+      description: "Digital manufacturing and automation solutions",
+      logo: "/partner-siemens.jpg",
+      specialization: "Digital Manufacturing",
+      partnership: "Technology Center",
+      projects: "18+ Digital Solutions",
+      since: "2020",
+      employees: "20+ Engineers",
+      achievements: ["Digital Twin Technology", "Smart Manufacturing", "IoT Integration"],
+    },
+    {
+      name: "ABB Robotics",
+      description: "Advanced robotics and automation technology partnership",
+      logo: "/partner-abb.jpg",
+      specialization: "Robotics & Automation",
+      partnership: "Innovation Lab",
+      projects: "22+ Automation Projects",
+      since: "2019",
+      employees: "18+ Specialists",
+      achievements: ["Collaborative Robots", "AI-Powered Automation", "Safety Systems"],
     },
   ]
 
@@ -117,30 +195,79 @@ export default function MachineriesPage() {
       description: "State-of-the-art manufacturing equipment and processes",
       icon: Cog,
       items: ["CNC Machines", "Industrial Robots", "Quality Control Systems", "Automation Tools"],
+      count: "25+ Machines",
+      area: "2000 sq ft",
+      value: "₹15Cr+",
     },
     {
       title: "Electronics & Computing",
       description: "Cutting-edge electronics and computing infrastructure",
       icon: Cpu,
       items: ["VLSI Design Tools", "Embedded Systems", "High-Performance Computing", "Testing Equipment"],
+      count: "40+ Workstations",
+      area: "1500 sq ft",
+      value: "₹12Cr+",
     },
     {
       title: "Research & Development",
       description: "Comprehensive R&D facilities for innovation",
       icon: Microscope,
       items: ["Material Testing", "Prototype Development", "Simulation Software", "Analysis Tools"],
+      count: "15+ Labs",
+      area: "3000 sq ft",
+      value: "₹18Cr+",
     },
     {
       title: "Specialized Equipment",
       description: "Industry-specific specialized machinery and tools",
       icon: Wrench,
       items: ["Welding Systems", "3D Printers", "IoT Devices", "Measurement Instruments"],
+      count: "30+ Tools",
+      area: "1800 sq ft",
+      value: "₹10Cr+",
     },
   ]
+
+  const labStats = [
+    { label: "Total Labs", value: "32", icon: "🏭" },
+    { label: "Equipment Worth", value: "₹50Cr+", icon: "💰" },
+    { label: "Students Trained", value: "5000+", icon: "🎓" },
+    { label: "Research Projects", value: "200+", icon: "🔬" },
+    { label: "Industry Partners", value: "25+", icon: "🤝" },
+    { label: "Patents Filed", value: "150+", icon: "📋" },
+  ]
+
+  const nextPartnerSlide = () => {
+    setCurrentPartnerSlide((prev) => (prev + 1) % industryPartners.length)
+  }
+
+  const prevPartnerSlide = () => {
+    setCurrentPartnerSlide((prev) => (prev - 1 + industryPartners.length) % industryPartners.length)
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#FFB347] to-[#E8E4C9] text-gray-800 overflow-x-hidden">
       <Navbar />
+
+      {/* Floating Elements */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div
+          className="absolute w-4 h-4 bg-[#FF6B35]/20 rounded-full animate-float"
+          style={{
+            left: `${mousePosition.x * 0.01}px`,
+            top: `${mousePosition.y * 0.01}px`,
+            animationDelay: "0s",
+          }}
+        />
+        <div
+          className="absolute w-6 h-6 bg-[#FFB347]/15 rounded-full animate-float"
+          style={{
+            left: `${mousePosition.x * 0.02}px`,
+            top: `${mousePosition.y * 0.02}px`,
+            animationDelay: "1s",
+          }}
+        />
+      </div>
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-[#FFB347]/30 to-[#E8E4C9]/30 overflow-hidden py-20">
@@ -156,36 +283,30 @@ export default function MachineriesPage() {
         </div>
       </section>
 
-      {/* Facilities Overview */}
-      <section className="bg-[#FFB347]/10 py-24">
+      {/* Lab Statistics - FLOATING CARDS LAYOUT */}
+      <section className="bg-[#FFB347]/10 py-16 relative">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-20 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">Our Facilities</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto animate-scale-in"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-            {facilities.map((facility, index) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-7xl mx-auto">
+            {labStats.map((stat, index) => (
               <div
                 key={index}
-                className={`bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift animate-bounce-in stagger-${index + 1} relative overflow-hidden`}
+                className={`floating-stat-card bg-[#1B120A] p-6 rounded-2xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift animate-bounce-in stagger-${index + 1} text-center relative overflow-hidden`}
+                style={{
+                  transform: `translateY(${index % 2 === 0 ? "0" : "20px"})`,
+                  animationDelay: `${index * 0.1}s`,
+                }}
               >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#FF6B35]/10 to-transparent rounded-bl-full"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/5 to-[#FFB347]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative z-10">
-                  <facility.icon className="h-12 w-12 text-[#FF6B35] mb-6 group-hover:scale-110 transition-transform duration-300" />
-                  <h3 className="text-xl font-bold text-[#FF6B35] mb-3 group-hover:text-[#FFB347] transition-colors duration-300">
-                    {facility.title}
-                  </h3>
-                  <p className="text-white mb-4 group-hover:text-gray-200 transition-colors duration-300">
-                    {facility.description}
+                  <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300 animate-float">
+                    {stat.icon}
+                  </div>
+                  <div className="text-2xl font-bold text-[#FF6B35] mb-2 group-hover:text-[#FFB347] transition-colors duration-300">
+                    {stat.value}
+                  </div>
+                  <p className="text-white text-sm group-hover:text-gray-200 transition-colors duration-300">
+                    {stat.label}
                   </p>
-                  <ul className="space-y-2">
-                    {facility.items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="text-gray-300 text-sm flex items-center gap-2">
-                        <div className="w-1 h-1 bg-[#FFB347] rounded-full"></div>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </div>
             ))}
@@ -193,8 +314,60 @@ export default function MachineriesPage() {
         </div>
       </section>
 
-      {/* Centers of Excellence */}
+      {/* Facilities Overview - MORPHING CARDS LAYOUT */}
       <section className="bg-[#E8E4C9]/30 py-24">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-20 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">Our Facilities</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto animate-scale-in"></div>
+          </div>
+
+          <div className="morphing-cards-grid max-w-7xl mx-auto">
+            {facilities.map((facility, index) => (
+              <div
+                key={index}
+                className={`morphing-card bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-700 group shadow-xl hover-lift animate-slide-up stagger-${index + 1} relative overflow-hidden`}
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#FF6B35]/10 to-transparent rounded-bl-full group-hover:scale-150 transition-transform duration-700"></div>
+                <div className="relative z-10 h-full flex flex-col">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="facility-icon-container">
+                      <facility.icon className="h-12 w-12 text-[#FF6B35] group-hover:scale-110 transition-transform duration-300" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-[#FF6B35] group-hover:text-[#FFB347] transition-colors duration-300">
+                        {facility.title}
+                      </h3>
+                      <div className="flex gap-4 mt-1">
+                        <span className="text-[#FFB347] text-sm">{facility.count}</span>
+                        <span className="text-gray-300 text-sm">{facility.area}</span>
+                        <span className="text-green-400 text-sm">{facility.value}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-white mb-6 group-hover:text-gray-200 transition-colors duration-300 flex-1">
+                    {facility.description}
+                  </p>
+                  <div className="facility-items-grid">
+                    {facility.items.map((item, itemIndex) => (
+                      <div
+                        key={itemIndex}
+                        className="facility-item bg-[#FF6B35]/10 border border-[#FFB347]/30 rounded-lg p-3 text-center group-hover:scale-105 transition-all duration-500"
+                        style={{ transitionDelay: `${itemIndex * 0.1}s` }}
+                      >
+                        <span className="text-white text-sm">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Centers of Excellence - ISOTOPE GRID LAYOUT */}
+      <section className="bg-[#FFB347]/10 py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">Centers of Excellence</h2>
@@ -218,12 +391,12 @@ export default function MachineriesPage() {
             ))}
           </div>
 
-          {/* Labs Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {/* Labs Isotope Grid */}
+          <div className="isotope-grid max-w-7xl mx-auto">
             {filteredLabs.map((lab, index) => (
               <div
                 key={index}
-                className={`bg-[#1B120A] rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift animate-slide-up stagger-${index + 1} relative overflow-hidden`}
+                className={`isotope-item isotope-item-${(index % 3) + 1} bg-[#1B120A] rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift animate-slide-up stagger-${index + 1} relative overflow-hidden`}
               >
                 <div className="relative h-48 overflow-hidden rounded-t-3xl">
                   <Image
@@ -239,6 +412,13 @@ export default function MachineriesPage() {
                     <span className="text-white text-sm font-semibold">{lab.category}</span>
                   </div>
                   <div className="absolute top-4 right-4 text-3xl">{lab.icon}</div>
+                  <div className="absolute bottom-4 left-4 right-4 bg-[#1B120A]/80 backdrop-blur-sm rounded-lg p-2">
+                    <div className="flex justify-between text-xs text-white">
+                      <span>Est. {lab.established}</span>
+                      <span>{lab.capacity}</span>
+                      <span>{lab.equipment}</span>
+                    </div>
+                  </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-[#FF6B35] mb-3 group-hover:text-[#FFB347] transition-colors duration-300">
@@ -248,7 +428,7 @@ export default function MachineriesPage() {
                     {lab.description}
                   </p>
                   <div className="space-y-2 mb-6">
-                    {lab.features.map((feature, featureIndex) => (
+                    {lab.features.slice(0, 3).map((feature, featureIndex) => (
                       <div key={featureIndex} className="flex items-center gap-2">
                         <div className="w-1 h-1 bg-[#FFB347] rounded-full"></div>
                         <span className="text-gray-300 text-sm">{feature}</span>
@@ -266,8 +446,8 @@ export default function MachineriesPage() {
         </div>
       </section>
 
-      {/* Industry Partners */}
-      <section className="bg-[#FFB347]/10 py-24">
+      {/* Industry Partners - CAROUSEL WITH MULTIPLE CARDS */}
+      <section className="bg-[#E8E4C9]/30 py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">Industry Partners</h2>
@@ -276,65 +456,138 @@ export default function MachineriesPage() {
               Leading industry partners with on-campus presence and collaboration
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {industryPartners.map((partner, index) => (
+
+          <div className="partners-carousel-container max-w-7xl mx-auto relative">
+            <div className="overflow-hidden">
               <div
-                key={index}
-                className={`bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift animate-slide-in-left stagger-${index + 1} relative overflow-hidden`}
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentPartnerSlide * 33.333}%)` }}
               >
-                <div className="absolute -top-12 -right-12 w-32 h-32 bg-gradient-to-bl from-[#FF6B35]/10 to-transparent rounded-full"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FF6B35]/20 to-[#FFB347]/20 overflow-hidden group-hover:scale-110 transition-transform duration-300">
-                      <Image
-                        src={partner.logo || "/placeholder.svg"}
-                        alt={partner.name}
-                        width={64}
-                        height={64}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.src = "/placeholder.svg?height=64&width=64"
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-[#FF6B35] group-hover:text-[#FFB347] transition-colors duration-300">
-                        {partner.name}
-                      </h3>
-                      <p className="text-[#FFB347] text-sm">{partner.specialization}</p>
+                {industryPartners.map((partner, index) => (
+                  <div key={index} className="w-1/3 flex-shrink-0 px-4">
+                    <div className="bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift relative overflow-hidden h-full">
+                      <div className="absolute -top-12 -right-12 w-32 h-32 bg-gradient-to-bl from-[#FF6B35]/10 to-transparent rounded-full"></div>
+                      <div className="relative z-10 h-full flex flex-col">
+                        <div className="flex items-start gap-6 mb-6">
+                          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#FF6B35]/20 to-[#FFB347]/20 overflow-hidden group-hover:scale-110 transition-transform duration-300">
+                            <Image
+                              src={partner.logo || "/placeholder.svg"}
+                              alt={partner.name}
+                              width={80}
+                              height={80}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.currentTarget.src = "/placeholder.svg?height=80&width=80"
+                              }}
+                            />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-xl font-bold text-[#FF6B35] group-hover:text-[#FFB347] transition-colors duration-300">
+                              {partner.name}
+                            </h3>
+                            <p className="text-[#FFB347] text-sm mb-1">{partner.specialization}</p>
+                            <p className="text-gray-300 text-sm">{partner.partnership}</p>
+                            <div className="flex gap-4 mt-2 text-xs text-gray-400">
+                              <span>Since {partner.since}</span>
+                              <span>{partner.employees}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <p className="text-white group-hover:text-gray-200 transition-colors duration-300 mb-6 flex-1">
+                          {partner.description}
+                        </p>
+                        <div className="mb-6">
+                          <h4 className="text-sm font-semibold text-[#FFB347] mb-2">Key Achievements:</h4>
+                          <div className="space-y-1">
+                            {partner.achievements.map((achievement, achIndex) => (
+                              <div key={achIndex} className="flex items-center gap-2">
+                                <div className="w-1 h-1 bg-[#FFB347] rounded-full"></div>
+                                <span className="text-gray-300 text-xs">{achievement}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="bg-[#FF6B35]/20 text-[#FFB347] px-4 py-2 rounded-full text-sm font-semibold">
+                            {partner.projects}
+                          </span>
+                          <Button className="bg-gradient-to-r from-[#FF6B35] to-[#FFB347] hover:from-[#FF6B35]/90 hover:to-[#FFB347]/90 text-white rounded-xl">
+                            Learn More
+                            <ExternalLink className="ml-2 h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <p className="text-white group-hover:text-gray-200 transition-colors duration-300">
-                    {partner.description}
-                  </p>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Carousel Controls */}
+            <button
+              onClick={prevPartnerSlide}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#1B120A] text-[#FF6B35] p-3 rounded-full hover:bg-[#FF6B35] hover:text-white transition-all duration-300 z-10 shadow-lg"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button
+              onClick={nextPartnerSlide}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#1B120A] text-[#FF6B35] p-3 rounded-full hover:bg-[#FF6B35] hover:text-white transition-all duration-300 z-10 shadow-lg"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+
+            {/* Carousel Indicators */}
+            <div className="flex justify-center mt-8 space-x-2">
+              {Array.from({ length: Math.ceil(industryPartners.length / 3) }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPartnerSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    currentPartnerSlide === index ? "bg-[#FF6B35] scale-125" : "bg-[#FFB347]/50"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-[#E8E4C9]/30 py-24">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-4xl mx-auto animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">
-              Ready to Access Our Labs?
-            </h2>
-            <p className="text-xl text-[#1B120A] mb-8 leading-relaxed">
-              Get hands-on experience with cutting-edge technology and equipment
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white rounded-full px-8 py-4 text-lg btn-animate hover-lift group">
-                Book Lab Access
-                <ChevronRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </Button>
-              <Button
-                variant="outline"
-                className="border-2 border-[#FF6B35] text-[#FF6B35] hover:bg-[#FF6B35] hover:text-white rounded-full px-8 py-4 text-lg transition-all duration-300"
-              >
-                Schedule Tour
-              </Button>
+      {/* CTA Section - SPLIT SCREEN LAYOUT */}
+      <section className="bg-[#FFB347]/10 py-24">
+        <div className="container mx-auto px-4">
+          <div className="split-screen max-w-6xl mx-auto">
+            <div className="animate-slide-in-left">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">
+                Ready to Access Our Labs?
+              </h2>
+              <p className="text-xl text-[#1B120A] mb-8 leading-relaxed">
+                Get hands-on experience with cutting-edge technology and equipment
+              </p>
+              <div className="space-y-4">
+                <Button className="bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white rounded-full px-8 py-4 text-lg btn-animate hover-lift group ripple w-full sm:w-auto">
+                  Book Lab Access
+                  <ChevronRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="border-2 border-[#FF6B35] text-[#FF6B35] hover:bg-[#FF6B35] hover:text-white rounded-full px-8 py-4 text-lg transition-all duration-300 w-full sm:w-auto"
+                >
+                  Schedule Tour
+                </Button>
+              </div>
+            </div>
+            <div className="animate-slide-in-right">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FF6B35]/20 to-[#FFB347]/20 rounded-3xl blur-xl animate-pulse-glow"></div>
+                <div className="relative bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 text-center">
+                  <div className="text-6xl mb-4 animate-float">🔬</div>
+                  <h3 className="text-2xl font-bold text-[#FF6B35] mb-4">32 Centers of Excellence</h3>
+                  <p className="text-white leading-relaxed">
+                    State-of-the-art facilities equipped with the latest technology for hands-on learning and research.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

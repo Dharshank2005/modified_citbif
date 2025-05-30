@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { Play, Calendar, Users, Tag, X, ChevronLeft, ChevronRight } from "lucide-react"
+import { Play, Calendar, Users, Tag, X, ChevronLeft, ChevronRight, Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import Navbar from "@/components/navbar"
@@ -38,9 +38,18 @@ export default function GalleryPage() {
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [lightboxImage, setLightboxImage] = useState<string | null>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [filterAnimation, setFilterAnimation] = useState(false)
 
   useEffect(() => {
     setIsLoaded(true)
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+    }
+
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   const categories = ["All", "Events", "Workshops", "Hackathons", "Awards", "Infrastructure", "Videos"]
@@ -183,9 +192,7 @@ export default function GalleryPage() {
   ]
 
   const filteredItems =
-    selectedCategory === "All"
-      ? galleryItems
-      : galleryItems.filter((item) => item.category === selectedCategory)
+    selectedCategory === "All" ? galleryItems : galleryItems.filter((item) => item.category === selectedCategory)
 
   const openLightbox = (src: string, index: number) => {
     setLightboxImage(src)
@@ -196,7 +203,6 @@ export default function GalleryPage() {
     setLightboxImage(null)
   }
 
-  // Corrected nextImage and prevImage to satisfy TS
   const nextImage = () => {
     const nextIndex = (currentImageIndex + 1) % filteredItems.length
     setCurrentImageIndex(nextIndex)
@@ -213,164 +219,275 @@ export default function GalleryPage() {
     setLightboxImage(src)
   }
 
+  const handleCategoryChange = (category: string) => {
+    setFilterAnimation(true)
+    setTimeout(() => {
+      setSelectedCategory(category)
+      setFilterAnimation(false)
+    }, 300)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#FFB347] to-[#E8E4C9] text-gray-800 overflow-x-hidden">
       <Navbar />
+
+      {/* Floating Elements */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div
+          className="absolute w-4 h-4 bg-[#FF6B35]/20 rounded-full animate-float"
+          style={{
+            left: `${mousePosition.x * 0.01}px`,
+            top: `${mousePosition.y * 0.01}px`,
+            animationDelay: "0s",
+          }}
+        />
+        <div
+          className="absolute w-6 h-6 bg-[#FFB347]/15 rounded-full animate-float"
+          style={{
+            left: `${mousePosition.x * 0.02}px`,
+            top: `${mousePosition.y * 0.02}px`,
+            animationDelay: "1s",
+          }}
+        />
+      </div>
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-[#FFB347]/30 to-[#E8E4C9]/30 overflow-hidden py-20">
         <div className="absolute inset-0 bg-[url('/grid-pattern.png')] opacity-10 animate-pulse-glow"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16 animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#1B120A] text-shimmer">Gallery</h1>
-            <div className="w-32 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto mb-8 animate-scale-in"></div>
-            <p className="text-xl text-[#1B120A] max-w-4xl mx-auto leading-relaxed">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#1B120A] text-shimmer animate-wiggle">Gallery</h1>
+            <div className="w-32 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto mb-8 animate-scale-in hover:w-48 transition-all duration-500"></div>
+            <p className="text-xl text-[#1B120A] max-w-4xl mx-auto leading-relaxed transform hover:scale-105 transition-transform duration-300">
               Capturing moments of innovation, collaboration, and achievement at CITBIF
             </p>
           </div>
         </div>
       </section>
 
-      {/* Category Filter */}
+      {/* Category Filter - ANIMATED TAB SYSTEM */}
       <section className="bg-[#FFB347]/10 py-12">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                  selectedCategory === category
-                    ? "bg-[#FF6B35] text-white shadow-lg scale-105"
-                    : "bg-[#1B120A] text-white hover:bg-[#FF6B35]/80 hover:scale-105"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
+          <div className="filter-tabs-container max-w-4xl mx-auto mb-8">
+            <div className="flex items-center gap-2 mb-6 justify-center">
+              <Filter className="h-5 w-5 text-[#FF6B35]" />
+              <span className="text-[#1B120A] font-semibold">Filter by Category</span>
+            </div>
+            <div className="filter-tabs relative bg-[#1B120A] p-2 rounded-2xl">
+              <div
+                className="tab-indicator absolute top-2 bottom-2 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] rounded-xl transition-all duration-500 ease-out"
+                style={{
+                  left: `${(categories.indexOf(selectedCategory) * 100) / categories.length}%`,
+                  width: `${100 / categories.length}%`,
+                }}
+              ></div>
+              <div className="flex relative z-10">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => handleCategoryChange(category)}
+                    className={`flex-1 px-4 py-3 rounded-xl font-semibold transition-all duration-300 relative z-10 ${
+                      selectedCategory === category ? "text-white" : "text-gray-300 hover:text-white"
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
           <div className="text-center">
-            <p className="text-[#1B120A] text-lg">
-              Showing {filteredItems.length} {filteredItems.length === 1 ? "item" : "items"}
-            </p>
+            <div className="inline-flex items-center gap-2 bg-[#1B120A] px-6 py-3 rounded-full">
+              <span className="text-[#FF6B35] font-bold text-lg">{filteredItems.length}</span>
+              <span className="text-white">{filteredItems.length === 1 ? "item" : "items"} found</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Gallery Grid */}
+      {/* Gallery Grid - MASONRY LAYOUT WITH ISOTOPE FILTERING */}
       <section className="bg-[#E8E4C9]/30 py-24">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div
+            className={`gallery-masonry-grid max-w-7xl mx-auto transition-all duration-500 ${
+              filterAnimation ? "opacity-50 scale-95" : "opacity-100 scale-100"
+            }`}
+          >
             {filteredItems.map((item, index) => (
               <div
                 key={item.id}
-                className={`bg-[#1B120A] rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift animate-slide-up stagger-${(index % 6) + 1} relative overflow-hidden cursor-pointer`}
+                className={`gallery-masonry-item gallery-item-${(index % 4) + 1} bg-[#1B120A] rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift animate-slide-up stagger-${(index % 6) + 1} relative overflow-hidden cursor-pointer interactive-card`}
                 onClick={() =>
-                  item.type === "image"
-                    ? openLightbox(item.image, index)
-                    : openLightbox(item.thumbnail, index)
+                  item.type === "image" ? openLightbox(item.image, index) : openLightbox(item.thumbnail, index)
                 }
               >
-                <div className="relative h-64 overflow-hidden rounded-t-3xl">
-                  <Image
-                    src={item.type === "image" ? item.image : item.thumbnail}
-                    alt={item.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    onError={(e) => {
-                      e.currentTarget.src = "/placeholder.svg?height=256&width=400"
-                    }}
-                  />
+                <div className="gallery-image-container relative overflow-hidden rounded-t-3xl">
+                  <div className="aspect-w-16 aspect-h-12">
+                    <Image
+                      src={item.type === "image" ? item.image : item.thumbnail}
+                      alt={item.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      onError={(e) => {
+                        e.currentTarget.src = "/placeholder.svg?height=300&width=400"
+                      }}
+                    />
+                  </div>
+
+                  {/* Image Overlay */}
+                  <div className="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Calendar className="h-4 w-4 text-white" />
+                        <span className="text-white text-sm">{item.date}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Users className="h-4 w-4 text-white" />
+                        <span className="text-white text-sm">{item.participants}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Video Play Button */}
                   {item.type === "video" && (
-                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                      <div className="w-16 h-16 bg-[#FF6B35] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <div className="video-play-overlay absolute inset-0 flex items-center justify-center">
+                      <div className="play-button w-16 h-16 bg-[#FF6B35]/90 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 animate-pulse">
                         <Play className="h-8 w-8 text-white ml-1" />
                       </div>
                     </div>
                   )}
-                  <div className="absolute top-4 left-4 bg-[#FF6B35]/90 backdrop-blur-sm px-3 py-1 rounded-full">
+
+                  {/* Category Badge */}
+                  <div className="category-badge absolute top-4 left-4 bg-[#FF6B35]/90 backdrop-blur-sm px-3 py-1 rounded-full">
                     <span className="text-white text-sm font-semibold">{item.category}</span>
+                  </div>
+
+                  {/* Type Badge */}
+                  <div className="type-badge absolute top-4 right-4">
+                    {item.type === "video" ? (
+                      <div className="bg-red-500/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                        <span className="text-white text-xs font-semibold">VIDEO</span>
+                      </div>
+                    ) : (
+                      <div className="bg-blue-500/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                        <span className="text-white text-xs font-semibold">IMAGE</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                <div className="p-6">
+                {/* Card Content */}
+                <div className="gallery-card-content p-6">
                   <h3 className="text-xl font-bold text-[#FF6B35] mb-2 group-hover:text-[#FFB347] transition-colors duration-300">
                     {item.title}
                   </h3>
-                  <p className="text-white mb-4 group-hover:text-gray-200 transition-colors duration-300 line-clamp-2">
+                  <p className="text-white mb-4 group-hover:text-gray-200 transition-colors duration-300 line-clamp-2 leading-relaxed">
                     {item.description}
                   </p>
 
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-4 text-sm">
-                      <div className="flex items-center gap-1 text-gray-300">
-                        <Calendar className="h-4 w-4" />
-                        <span>{item.date}</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-gray-300">
-                        <Users className="h-4 w-4" />
-                        <span>{item.participants}</span>
-                      </div>
-                    </div>
-
+                  {/* Tags */}
+                  <div className="tags-container">
                     <div className="flex flex-wrap gap-2">
-                      {item.tags.map((tag, tagIndex) => (
+                      {item.tags.slice(0, 3).map((tag, tagIndex) => (
                         <span
                           key={tagIndex}
-                          className="bg-[#FF6B35]/20 text-[#FFB347] px-2 py-1 rounded-full text-xs flex items-center gap-1"
+                          className="tag bg-[#FF6B35]/20 text-[#FFB347] px-2 py-1 rounded-full text-xs flex items-center gap-1 group-hover:scale-105 transition-transform duration-300"
+                          style={{ transitionDelay: `${tagIndex * 0.1}s` }}
                         >
                           <Tag className="h-3 w-3" />
                           {tag}
                         </span>
                       ))}
+                      {item.tags.length > 3 && (
+                        <span className="tag bg-[#FFB347]/20 text-[#FF6B35] px-2 py-1 rounded-full text-xs">
+                          +{item.tags.length - 3} more
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
+
+                {/* Hover Effect Shine */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -skew-x-12 translate-x-full group-hover:translate-x-[-100%] transition-transform duration-1000"></div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Lightbox */}
+      {/* Enhanced Lightbox */}
       {lightboxImage && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
-          <div className="relative max-w-4xl max-h-full">
+        <div className="lightbox-overlay fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="lightbox-container relative max-w-6xl max-h-full">
+            {/* Close Button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 z-60 bg-[#FF6B35] hover:bg-[#FF6B35]/80 text-white p-2 rounded-full transition-all duration-300"
+              className="lightbox-close absolute top-4 right-4 z-60 bg-[#FF6B35] hover:bg-[#FF6B35]/80 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
             >
               <X className="h-6 w-6" />
             </button>
 
+            {/* Navigation Buttons */}
             <button
               onClick={prevImage}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-60 bg-[#1B120A]/80 hover:bg-[#1B120A] text-white p-3 rounded-full transition-all duration-300"
+              className="lightbox-nav-prev absolute left-4 top-1/2 -translate-y-1/2 z-60 bg-[#1B120A]/80 hover:bg-[#1B120A] text-white p-4 rounded-full transition-all duration-300 hover:scale-110 backdrop-blur-sm"
             >
               <ChevronLeft className="h-6 w-6" />
             </button>
 
             <button
               onClick={nextImage}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-60 bg-[#1B120A]/80 hover:bg-[#1B120A] text-white p-3 rounded-full transition-all duration-300"
+              className="lightbox-nav-next absolute right-4 top-1/2 -translate-y-1/2 z-60 bg-[#1B120A]/80 hover:bg-[#1B120A] text-white p-4 rounded-full transition-all duration-300 hover:scale-110 backdrop-blur-sm"
             >
               <ChevronRight className="h-6 w-6" />
             </button>
 
-            <Image
-              src={lightboxImage || "/placeholder.svg"}
-              alt="Gallery Image"
-              width={800}
-              height={600}
-              className="max-w-full max-h-full object-contain rounded-lg"
-              onError={(e) => {
-                e.currentTarget.src = "/placeholder.svg?height=600&width=800"
-              }}
-            />
+            {/* Main Image */}
+            <div className="lightbox-image-container relative">
+              <Image
+                src={lightboxImage || "/placeholder.svg"}
+                alt="Gallery Image"
+                width={1200}
+                height={800}
+                className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
+                onError={(e) => {
+                  e.currentTarget.src = "/placeholder.svg?height=800&width=1200"
+                }}
+              />
+            </div>
 
-            <div className="absolute bottom-4 left-4 right-4 bg-[#1B120A]/80 backdrop-blur-sm p-4 rounded-lg">
-              <h3 className="text-white font-bold text-lg mb-2">{filteredItems[currentImageIndex]?.title}</h3>
-              <p className="text-gray-300 text-sm">{filteredItems[currentImageIndex]?.description}</p>
+            {/* Image Info */}
+            <div className="lightbox-info absolute bottom-4 left-4 right-4 bg-[#1B120A]/90 backdrop-blur-sm p-6 rounded-2xl border border-[#FFB347]/30">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h3 className="text-white font-bold text-xl mb-2">{filteredItems[currentImageIndex]?.title}</h3>
+                  <p className="text-gray-300 text-sm mb-3">{filteredItems[currentImageIndex]?.description}</p>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Calendar className="h-4 w-4 text-[#FFB347]" />
+                    <span className="text-gray-300">{filteredItems[currentImageIndex]?.date}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <Users className="h-4 w-4 text-[#FFB347]" />
+                    <span className="text-gray-300">{filteredItems[currentImageIndex]?.participants}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {filteredItems[currentImageIndex]?.tags.map((tag, tagIndex) => (
+                      <span key={tagIndex} className="bg-[#FF6B35]/20 text-[#FFB347] px-2 py-1 rounded-full text-xs">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Image Counter */}
+            <div className="lightbox-counter absolute top-4 left-4 bg-[#1B120A]/80 backdrop-blur-sm px-4 py-2 rounded-full">
+              <span className="text-white text-sm">
+                {currentImageIndex + 1} / {filteredItems.length}
+              </span>
             </div>
           </div>
         </div>
@@ -381,17 +498,17 @@ export default function GalleryPage() {
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">Be Part of Our Story</h2>
-            <p className="text-xl text-[#1B120A] mb-8 leading-relaxed">
+            <p className="text-xl text-[#1B120A] mb-8 leading-relaxed transform hover:scale-105 transition-transform duration-300">
               Join our vibrant community and create memorable moments of innovation
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white rounded-full px-8 py-4 text-lg btn-animate hover-lift group">
+              <Button className="bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white rounded-full px-8 py-4 text-lg btn-animate hover-lift group ripple">
                 Join Our Events
                 <ChevronRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
               </Button>
               <Button
                 variant="outline"
-                className="border-2 border-[#FF6B35] text-[#FF6B35] hover:bg-[#FF6B35] hover:text-white rounded-full px-8 py-4 text-lg transition-all duration-300"
+                className="border-2 border-[#FF6B35] text-[#FF6B35] hover:bg-[#FF6B35] hover:text-white rounded-full px-8 py-4 text-lg transition-all duration-300 hover:scale-105"
               >
                 Submit Your Photos
               </Button>
