@@ -9,15 +9,15 @@ import { useState } from "react"
 
 const navItems = [
   { name: "HOME", href: "/" },
-  { name: "ABOUT", href: "/about" },
+  //{ name: "ABOUT", href: "/about" },
   { name: "MONEY", href: "/money" },
-  { name: "MACHINERIES", href: "/machineries" },
-  { name: "MARKET", href: "/market" },
+  //{ name: "MACHINERIES", href: "/machineries" },
+  //{ name: "MARKET", href: "/market" },
   { name: "MENTOR", href: "/mentor" },
   { name: "MORE", href: "/more" },
-  { name: "GALLERY", href: "/gallery" },
+  //{ name: "GALLERY", href: "/gallery" },
   { name: "OUR STARTUPS", href: "/startups" },
-  { name: "CONTACT", href: "/contact" },
+  //{ name: "CONTACT", href: "/contact" },
   { name: "IN-CUBATE", href: "/incubate" },
 ]
 

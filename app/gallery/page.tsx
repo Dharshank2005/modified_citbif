@@ -34,18 +34,18 @@ type VideoItem = {
 type GalleryItem = ImageItem | VideoItem
 
 export default function GalleryPage() {
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isItLoaded, setIsItLoaded] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [lightboxImage, setLightboxImage] = useState<string | null>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [mouseItPosition, setMouseItPosition] = useState({ x: 0, y: 0 })
   const [filterAnimation, setFilterAnimation] = useState(false)
 
   useEffect(() => {
-    setIsLoaded(true)
+    setIsItLoaded(true)
 
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+      setMouseItPosition({ x: e.clientX, y: e.clientY })
     }
 
     window.addEventListener("mousemove", handleMouseMove)
@@ -236,16 +236,16 @@ export default function GalleryPage() {
         <div
           className="absolute w-4 h-4 bg-[#FF6B35]/20 rounded-full animate-float"
           style={{
-            left: `${mousePosition.x * 0.01}px`,
-            top: `${mousePosition.y * 0.01}px`,
+            left: `${mouseItPosition.x * 0.01}px`,
+            top: `${mouseItPosition.y * 0.01}px`,
             animationDelay: "0s",
           }}
         />
         <div
           className="absolute w-6 h-6 bg-[#FFB347]/15 rounded-full animate-float"
           style={{
-            left: `${mousePosition.x * 0.02}px`,
-            top: `${mousePosition.y * 0.02}px`,
+            left: `${mouseItPosition.x * 0.02}px`,
+            top: `${mouseItPosition.y * 0.02}px`,
             animationDelay: "1s",
           }}
         />

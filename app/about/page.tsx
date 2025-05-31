@@ -7,12 +7,12 @@ import { useEffect, useState } from "react"
 import Navbar from "@/components/navbar"
 
 export default function AboutPage() {
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isItLoaded, setIsItLoaded] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [currentTeamSlide, setCurrentTeamSlide] = useState(0)
 
   useEffect(() => {
-    setIsLoaded(true)
+    setIsItLoaded(true)
 
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
