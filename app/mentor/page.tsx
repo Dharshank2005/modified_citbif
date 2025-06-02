@@ -213,22 +213,22 @@ export default function MentorPage() {
       {/* Mentorship Benefits - HEXAGONAL GRID LAYOUT */}
       <section className="bg-[#FFB347]/10 py-24">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-20 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A]">
               Why Choose Our Mentorship?
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto animate-scale-in"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto"></div>
           </div>
           <div className="hex-grid max-w-4xl mx-auto">
             {mentorshipBenefits.map((benefit, index) => (
-              <div key={index} className={`hex-item animate-bounce-in stagger-${index + 1}`}>
-                <div className="hex-shape border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group hover-lift animate-hex-float">
+              <div key={index} className="hex-item">
+                <div className="hex-shape border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-300 hover:scale-105">
                   <div className="hex-content text-center">
-                    <benefit.icon className="h-8 w-8 text-[#FF6B35] mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
-                    <h3 className="text-sm font-bold text-[#FF6B35] mb-2 group-hover:text-[#FFB347] transition-colors duration-300">
+                    <benefit.icon className="h-8 w-8 text-[#FF6B35] mx-auto mb-3 transition-transform duration-300 group-hover:scale-110" />
+                    <h3 className="text-sm font-bold text-[#FF6B35] mb-2 transition-colors duration-300 group-hover:text-[#FFB347]">
                       {benefit.title}
                     </h3>
-                    <p className="text-white text-xs leading-tight group-hover:text-gray-200 transition-colors duration-300">
+                    <p className="text-white text-xs leading-tight transition-colors duration-300 group-hover:text-gray-200">
                       {benefit.description}
                     </p>
                   </div>
@@ -238,6 +238,7 @@ export default function MentorPage() {
           </div>
         </div>
       </section>
+
 
       {/* Our Mentors - FLIP CARDS LAYOUT */}
       <section className="bg-[#E8E4C9]/30 py-24">
