@@ -34,6 +34,8 @@ import com6 from "../public/company6.jpg"
 import chairman from "../public/Chairman.jpg"
 import edii from "../public/edii.png"
 import idealab from "../public/idealab.png"
+import noor from "../public/noor.jpg"
+import karthick from "../public/karthick.jpg"
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -200,21 +202,21 @@ export default function Home() {
 
   const founders = [
     {
-      name: "STUDIO",
-      role: "Founder, OAK Studio",
-      image: "/founder1.png",
+      name: "Sriram",
+      role: "Founder, GOK Studio",
+      image: "/GOK.png",
       text: "CITBIF has been a great partner to our business. Their support has accelerated our growth and provided valuable resources.",
     },
     {
-      name: "Dharamraj",
-      role: "Founder, Datom Technologies",
-      image: "/founder2.png",
-      text: "I'm Dharamraj founder of Datom Technologies, a manufacturing organization. Our mission is to revolutionize the manufacturing industry with innovative software and hardware means.",
+      name: "Dharanya",
+      role: "Founder, Diatom Technologies",
+      image: "/diatom.png",
+      text: "I'm Dharanya, founder of Diatom Technologies, a manufacturing organization. Our mission is to revolutionize the manufacturing industry with innovative software and hardware means.",
     },
     {
-      name: "AREON",
-      role: "Founder, AREON Networks",
-      image: "/founder3.png",
+      name: "Manojarwin P",
+      role: "Founder, ARWIN Networks",
+      image: "/Arwin.png",
       text: "The support from CITBIF has been instrumental in our growth journey. Their mentorship and resources have been invaluable.",
     },
   ]
@@ -685,7 +687,7 @@ export default function Home() {
                     <div className="relative bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 shadow-2xl hover-lift group-hover:border-[#FF6B35] transition-all duration-500">
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -skew-x-12 translate-x-full group-hover:translate-x-[-100%] transition-transform duration-1000"></div>
                       <Image
-                        src="/citbif-building.jpg"
+                        src="/citbif.jpg"
                         alt="CITBIF Building"
                         width={600}
                         height={400}
@@ -1449,7 +1451,7 @@ export default function Home() {
               {
                 name: "Dr. A. Noorjahan",
                 role: "Bio-focus Scientific Solutions",
-                image: test1,
+                image: noor,
                 text: "Campus and the infrastructure facility is very useful to students. Good, Hospitality, Responsive and interactive students and future entrepreneurs. Good initiatives and Talented. All the best for future entrepreneurs.",
               },
               {
@@ -1461,7 +1463,7 @@ export default function Home() {
               {
                 name: "Karthick Mari Pitchai",
                 role: "Founder and CEO Karking",
-                image: test3,
+                image: karthick,
                 text: "It's wonderful initiative! That's too from first year students. I can see lot of potential from students of CIT, in my opinion CIT will have too many student startups incubated inside in another 3 years of span.",
               },
             ].map((testimonial, index) => (
@@ -1765,8 +1767,8 @@ export default function Home() {
                 {/* Main Image */}
                 <div className="relative bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 overflow-hidden shadow-2xl hover-lift">
                   <Image
-                    src={chairman || "/placeholder.svg"}
-                    alt="Shri P. Sriram"
+                    src={"/placeholder.svg"}
+                    alt="Mr. S. GokulaKrishnan"
                     width={400}
                     height={500}
                     className="rounded-2xl mx-auto image-hover w-full h-auto"
@@ -1782,13 +1784,12 @@ export default function Home() {
             <div className="lg:col-span-3 space-y-8 scroll-animate stagger-2">
               {/* Header */}
               <div>
-                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#1B120A] text-shimmer">Shri.P.Sriram</h2>
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#1B120A] text-shimmer">Mr. S. GokulaKrishnan</h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mb-6 animate-scale-in"></div>
                 <h3 className="text-2xl mb-4 text-[#1B120A] animate-fade-in font-semibold">
-                  First Generation Entrepreneur and Industrialist
                 </h3>
                 <p className="text-[#1B120A] mb-6 font-medium text-lg animate-fade-in stagger-2">
-                  Chairman, Chennai Institute of Technology
+                  Director of Innovation, Chennai Institute of Technology Business Incubation Forum
                 </p>
               </div>
 
