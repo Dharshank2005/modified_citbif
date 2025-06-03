@@ -1409,52 +1409,54 @@ export default function MorePage() {
       </section>
 
       {/* Achievements - TIMELINE LAYOUT */}
-      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Our Achievements
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {achievements.map((category, index) => (
+      <section className="bg-[#E8E4C9]/30 py-24">
+  <div className="container mx-auto px-4">
+    <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-[#1B120A] text-shimmer">
+      Our Achievements
+    </h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      {achievements.map((category, index) => (
+        <div
+          key={category.category}
+          id={`achievement-${index}`}
+          className={`bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift scroll-animation`}
+          style={{
+            opacity: 1,
+            transform: "none",
+            transitionProperty: "opacity, transform",
+            transitionDuration: "0.8s",
+            transitionTimingFunction: "ease-in-out",
+            transitionDelay: `${index * 0.1}s`,
+          }}
+        >
+          <h3 className="text-2xl font-bold text-[#FF6B35] mb-6 group-hover:text-[#FFB347] transition-colors duration-300">
+            {category.category}
+          </h3>
+          <div className="space-y-4">
+            {category.items.map((item, i) => (
               <div
-                key={category.category}
-                id={`achievement-${index}`}
-                className={`scroll-animation animate delay-${index * 100}`}
+                key={item.title}
+                className="p-4 bg-[#2a2a2a] rounded-xl border border-[#FFB347]/20 hover:border-[#FF6B35]/40 transition-all duration-300 group-hover:scale-105"
+                style={{ transitionDelay: `${i * 0.1}s` }}
               >
-                <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                  <h3 className="text-xl font-semibold mb-4">
-                    {category.category}
-                  </h3>
-                  <div className="space-y-4">
-                    {category.items.map((item) => (
-                      <div
-                        key={item.title}
-                        className="border-l-4 border-blue-500 pl-4"
-                      >
-                        <div className="flex items-start gap-3">
-                          <span className="text-2xl">{item.icon}</span>
-                          <div>
-                            <h4 className="font-medium">{item.title}</h4>
-                            <p className="text-sm text-gray-600">
-                              {item.organization}
-                            </p>
-                            <p className="text-sm text-gray-500 mt-1">
-                              {item.description}
-                            </p>
-                            <p className="text-xs text-gray-400 mt-1">
-                              {item.date}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl text-[#FFB347]">{item.icon}</span>
+                  <div>
+                    <h4 className="font-semibold text-white">{item.title}</h4>
+                    <p className="text-sm text-gray-400">{item.organization}</p>
+                    <p className="text-sm text-gray-500 mt-1">{item.description}</p>
+                    <p className="text-xs text-gray-600 mt-1">{item.date}</p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* New Initiatives - INTERACTIVE DASHBOARD CARDS */}
       <section 
