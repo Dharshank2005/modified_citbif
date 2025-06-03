@@ -60,23 +60,87 @@ export default function Home() {
   }
 
   const focusAreas = [
-    { name: "Industrial IoT & Automation", icon: "🏭" },
-    { name: "Robotics", icon: "🤖" },
-    { name: "Automotive innovations in EVs", icon: "🚗" },
-    { name: "Healthtech & Biomedical innovations", icon: "🧬" },
-    { name: "Space Tech advances", icon: "🚀" },
-    { name: "Cyber-security", icon: "🔒" },
-    { name: "Edu Tech", icon: "📚" },
-    { name: "Semi-Conductors", icon: "💻" },
-    { name: "Drone and Space Research", icon: "🛸" },
-    { name: "Additive Manufacturing", icon: "🖨️" },
-    { name: "Nano-Technology", icon: "🔬" },
-    { name: "Machine Learning", icon: "🧠" },
-    { name: "AI", icon: "🤖" },
-    { name: "Energy & Climate Tech", icon: "⚡" },
-    { name: "Green tech", icon: "🌱" },
-    { name: "Smart manufacturing", icon: "🏢" },
-  ]
+    {
+      icon: "🤖",
+      name: "AI/ML",
+      description: "Building intelligent systems using machine learning and data science.",
+    },
+    {
+      icon: "🌐",
+      name: "IoT",
+      description: "Connecting devices to communicate and automate environments.",
+    },
+    {
+      icon: "🧠",
+      name: "Neurotech",
+      description: "Innovations in brain-computer interfaces and cognitive computing.",
+    },
+    {
+      icon: "🧬",
+      name: "Biotech",
+      description: "Advancements in healthcare, genetics, and biological systems.",
+    },
+    {
+      icon: "🛰️",
+      name: "Aerospace",
+      description: "Cutting-edge technologies for space exploration and aviation.",
+    },
+    {
+      icon: "🔐",
+      name: "Cybersecurity",
+      description: "Protecting systems and data from digital threats and breaches.",
+    },
+    {
+      icon: "⚛️",
+      name: "Quantum Tech",
+      description: "Leveraging quantum mechanics for computing and communication.",
+    },
+    {
+      icon: "🧪",
+      name: "Material Science",
+      description: "Innovating with advanced materials for stronger, smarter solutions.",
+    },
+    {
+      icon: "🚀",
+      name: "Defense Tech",
+      description: "Developing advanced systems for national security and defense.",
+    },
+    {
+      icon: "💡",
+      name: "Clean Tech",
+      description: "Sustainable technologies for renewable energy and environment.",
+    },
+    {
+      icon: "📦",
+      name: "Supply Chain",
+      description: "Improving logistics, inventory, and delivery systems with tech.",
+    },
+    {
+      icon: "💊",
+      name: "Health Tech",
+      description: "Innovations in digital health, telemedicine, and diagnostics.",
+    },
+    {
+      icon: "🏭",
+      name: "Industry 4.0",
+      description: "Smart factories and automation in manufacturing systems.",
+    },
+    {
+      icon: "📱",
+      name: "AR/VR",
+      description: "Immersive experiences through augmented and virtual reality.",
+    },
+    {
+      icon: "🧾",
+      name: "FinTech",
+      description: "Transforming financial services with digital technology.",
+    },
+    {
+      icon: "🚗",
+      name: "Mobility",
+      description: "Innovations in transport including EVs and smart mobility.",
+    }
+  ];
   const [counters, setCounters] = useState([0, 0, 0, 0])
   const [hasAnimated, setHasAnimated] = useState(false)
   const sectionRef = useRef(null)
@@ -504,10 +568,7 @@ export default function Home() {
                   Explore More
                   <ChevronRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </Button>
-                <Button
-                  variant="outline"
-                  className="border-2 border-[#FF6B35] text-[#FF6B35] hover:bg-[#FF6B35] hover:text-white rounded-full px-8 py-4 text-lg transition-all duration-300"
-                >
+                <Button variant="outline" className="px-6 py-3 border-2 border-[#FF6B35] bg-white text-[#FF6B35] hover:bg-[#FF6B35] hover:text-white rounded-full font-semibold">
                   Watch Demo
                 </Button>
               </div>
@@ -660,26 +721,26 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="grid grid-cols-2 gap-6 mt-8">
-                    {[
-                      { icon: Target, title: "Mission Driven", desc: "Focused on societal impact" },
-                      { icon: Lightbulb, title: "Innovation First", desc: "Cutting-edge technology solutions" },
-                      { icon: Users, title: "Community Focused", desc: "Building entrepreneurial ecosystem" },
-                      { icon: Award, title: "Excellence", desc: "Proven track record of success" },
-                    ].map((item, index) => (
-                      <div
-                        key={index}
-                        className={`bg-[#1B120A] p-6 rounded-2xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group hover-lift animate-bounce-in stagger-${index + 1} interactive-card`}
-                      >
-                        <item.icon className="h-8 w-8 text-[#FF6B35] mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-float" />
-                        <h3 className="font-bold text-white mb-2 group-hover:text-[#FFB347] transition-colors duration-300 group-hover:translate-y-[-2px]">
-                          {item.title}
-                        </h3>
-                        <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300 leading-relaxed">
-                          {item.desc}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+                  {[
+                    { icon: Target, title: "Mission Driven", desc: "Focused on societal impact" },
+                    { icon: Lightbulb, title: "Innovation First", desc: "Cutting-edge technology solutions" },
+                    { icon: Users, title: "Community Focused", desc: "Building entrepreneurial ecosystem" },
+                    { icon: Award, title: "Excellence", desc: "Proven track record of success" },
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className="bg-[#1B120A] p-6 rounded-2xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group"
+                    >
+                      <item.icon className="h-8 w-8 text-[#FF6B35] mb-4 transform transition-transform duration-300 group-hover:scale-110" />
+                      <h3 className="font-bold text-white mb-2 group-hover:text-[#FFB347] transition-colors duration-300">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300 leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
                 </div>
                 <div className="animate-slide-in-right">
                   <div className="relative group">
@@ -887,9 +948,9 @@ export default function Home() {
                             transform: "rotateY(180deg)",
                           }}
                         >
-                          <div className="text-center">
+                          <div className="text-center text-white">
                             <div className="text-3xl mb-2">{area.icon}</div>
-                            <h3 className="text-sm font-bold text-white">{area.name}</h3>
+                            <p className="text-sm font-medium leading-snug">{area.description}</p>
                           </div>
                         </div>
                       </div>
@@ -927,9 +988,9 @@ export default function Home() {
                             transform: "rotateY(180deg)",
                           }}
                         >
-                          <div className="text-center">
+                          <div className="text-center text-white">
                             <div className="text-3xl mb-2">{area.icon}</div>
-                            <h3 className="text-sm font-bold text-white">{area.name}</h3>
+                            <p className="text-sm font-medium leading-snug">{area.description}</p>
                           </div>
                         </div>
                       </div>

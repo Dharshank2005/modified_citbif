@@ -215,7 +215,7 @@ export default function MoneyPage() {
                       ></div>
                       <div className="relative z-10">
                         <div className="flex items-center gap-4 mb-6">
-                          <div className="text-5xl group-hover:scale-110 transition-transform duration-300 animate-float">
+                          <div className="w-16 h-16 flex items-center justify-center text-5xl transition-transform duration-300 transform group-hover:scale-110">
                             {scheme.icon}
                           </div>
                           <div>

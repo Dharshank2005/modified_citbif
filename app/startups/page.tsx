@@ -9,9 +9,49 @@ import Navbar from "@/components/navbar"
 export default function StartupsPage() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState("All")
+  const [visibleElements, setVisibleElements] = useState(new Set())
+
+  // Track visible elements for scroll animation
+  const [scrollVisibleElements, setScrollVisibleElements] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     setIsLoaded(true)
+    
+    // Scroll animation handler
+    const handleScroll = () => {
+      // Make sure we're selecting all cards that should be animated
+      const scrollElements = document.querySelectorAll('#startup-grid .scroll-animate-card, #metrics-grid .scroll-animate-card');
+      
+      const newVisibleElements = new Set<string>()
+      
+      scrollElements.forEach((element) => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementBottom = element.getBoundingClientRect().bottom;
+        const windowHeight = window.innerHeight;
+        const id = element.id;
+        
+        // Check if element is in viewport
+        if (elementTop < windowHeight && elementBottom > 0) {
+          // Element is visible
+          if (id) {
+            newVisibleElements.add(id)
+          }
+        }
+      });
+      
+      setScrollVisibleElements(newVisibleElements)
+    };
+    
+    // Initial check with multiple attempts to ensure elements are visible
+    setTimeout(handleScroll, 100);
+    setTimeout(handleScroll, 500);
+    setTimeout(handleScroll, 1000);
+    
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    
+    // Clean up
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [])
 
   const categories = ["All", "AI/ML", "Healthcare", "Manufacturing", "FinTech", "EdTech", "CleanTech"]
@@ -205,10 +245,13 @@ export default function StartupsPage() {
         <div className="absolute inset-0 bg-[url('/grid-pattern.png')] opacity-10 animate-pulse-glow"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16 animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#1B120A] text-shimmer">Our Startups</h1>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#1B120A] text-shimmer">
+              Our Startups
+            </h1>
             <div className="w-32 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto mb-8 animate-scale-in"></div>
             <p className="text-xl text-[#1B120A] max-w-4xl mx-auto leading-relaxed">
-              Meet the innovative startups that are transforming industries and creating impact
+              Meet the innovative startups that are transforming industries and
+              creating impact
             </p>
           </div>
         </div>
@@ -217,28 +260,45 @@ export default function StartupsPage() {
       {/* Success Metrics */}
       <section className="bg-[#FFB347]/10 py-24">
         <div className="container mx-auto px-4">
+          {/* Fade in title */}
           <div className="text-center mb-20 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer">Our Impact</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1B120A] text-shimmer animate-fade-in">
+              Our Impact
+            </h2>
+
+            {/* Scale in underline */}
             <div className="w-24 h-1 bg-gradient-to-r from-[#FF6B35] to-[#FFB347] mx-auto animate-scale-in"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+
+          {/* Metrics Grid */}
+          <div id="metrics-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {successMetrics.map((metric, index) => (
               <div
                 key={index}
-                className={`bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift animate-bounce-in stagger-${index + 1} relative overflow-hidden text-center`}
+                id={`metric-${index}`}
+                className="bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift relative overflow-hidden text-center scroll-animate-card"
+                style={{
+                  opacity: scrollVisibleElements.has(`metric-${index}`) ? 1 : 0,
+                  transform: scrollVisibleElements.has(`metric-${index}`) ? 'translate3d(0, 0, 0)' : 'translate3d(0, 30px, 0)',
+                  transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+                  willChange: 'opacity, transform',
+                  animationDelay: `${0.2 + Math.min(index, 2) * 0.1}s`
+                }}
               >
                 <div
-                  className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${metric.color} opacity-10 rounded-bl-full`}
+                  className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${metric.color} opacity-10 rounded-bl-full animate-fade-in`}
                 ></div>
-                <div className="relative z-10">
-                  <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="relative z-10 animate-fade-in">
+                  <div className="text-4xl animate-fade-in mb-4 group-hover:scale-110 transition-transform duration-300">
                     {metric.icon}
                   </div>
-                  <div className="text-3xl font-bold text-[#FF6B35] mb-2 group-hover:text-[#FFB347] transition-colors duration-300">
+                  <div className="text-3xl animate-fade-in font-bold text-[#FF6B35] mb-2 group-hover:text-[#FFB347] transition-colors duration-300">
                     {metric.value}
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">{metric.title}</h3>
-                  <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300">
+                  <h3 className="text-lg animate-fade-in font-semibold text-white mb-2">
+                    {metric.title}
+                  </h3>
+                  <p className="text-gray-300 text-sm animate-fade-in  group-hover:text-gray-200 transition-colors duration-300">
                     {metric.description}
                   </p>
                 </div>
@@ -268,7 +328,8 @@ export default function StartupsPage() {
           </div>
           <div className="text-center">
             <p className="text-[#1B120A] text-lg">
-              Showing {filteredStartups.length} {filteredStartups.length === 1 ? "startup" : "startups"}
+              Showing {filteredStartups.length}{" "}
+              {filteredStartups.length === 1 ? "startup" : "startups"}
             </p>
           </div>
         </div>
@@ -277,18 +338,27 @@ export default function StartupsPage() {
       {/* Startups Grid */}
       <section className="bg-[#FFB347]/10 py-24">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div id="startup-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {filteredStartups.map((startup, index) => (
               <div
                 key={startup.id}
-                className={`bg-[#1B120A] rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift animate-slide-up stagger-${(index % 6) + 1} relative overflow-hidden`}
+                id={`startup-${index}`}
+                className="bg-[#1B120A] p-8 rounded-3xl border border-[#FFB347]/50 hover:border-[#FF6B35] transition-all duration-500 group shadow-xl hover-lift relative overflow-hidden text-center scroll-animate-card"
+                style={{
+                  opacity: scrollVisibleElements.has(`startup-${index}`) ? 1 : 0,
+                  transform: scrollVisibleElements.has(`startup-${index}`) ? 'translate3d(0, 0, 0)' : 'translate3d(0, 30px, 0)',
+                  transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+                  willChange: 'opacity, transform',
+                  animationDelay: `${0.2 + Math.min(index, 2) * 0.1}s`
+                }}
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#FF6B35]/10 to-transparent rounded-bl-full"></div>
 
                 <div className="p-8 relative z-10">
                   {/* Header */}
+                  {/* Header */}
                   <div className="flex items-start gap-4 mb-6">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FF6B35]/20 to-[#FFB347]/20 overflow-hidden group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FF6B35]/20 to-[#FFB347]/20 overflow-hidden group-hover:scale-110 transition-transform duration-300 animate-bounce-in animate-fade-in">
                       <Image
                         src={startup.logo || "/placeholder.svg"}
                         alt={startup.name}
@@ -296,7 +366,8 @@ export default function StartupsPage() {
                         height={64}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          e.currentTarget.src = "/placeholder.svg?height=64&width=64"
+                          e.currentTarget.src =
+                            "/placeholder.svg?height=64&width=64";
                         }}
                       />
                     </div>
@@ -309,7 +380,9 @@ export default function StartupsPage() {
                           {startup.category}
                         </span>
                         <span
-                          className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(startup.status)}`}
+                          className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(
+                            startup.status
+                          )}`}
                         >
                           {startup.status}
                         </span>
@@ -344,10 +417,15 @@ export default function StartupsPage() {
 
                   {/* Technologies */}
                   <div className="mb-6">
-                    <h4 className="text-[#FFB347] font-semibold mb-2 text-sm">Technologies:</h4>
+                    <h4 className="text-[#FFB347] font-semibold mb-2 text-sm">
+                      Technologies:
+                    </h4>
                     <div className="flex flex-wrap gap-2">
                       {startup.technologies.map((tech, techIndex) => (
-                        <span key={techIndex} className="bg-[#FFB347]/20 text-[#FFB347] px-2 py-1 rounded-full text-xs">
+                        <span
+                          key={techIndex}
+                          className="bg-[#FFB347]/20 text-[#FFB347] px-2 py-1 rounded-full text-xs"
+                        >
                           {tech}
                         </span>
                       ))}
@@ -356,14 +434,23 @@ export default function StartupsPage() {
 
                   {/* Achievements */}
                   <div className="mb-6">
-                    <h4 className="text-[#FFB347] font-semibold mb-2 text-sm">Key Achievements:</h4>
+                    <h4 className="text-[#FFB347] font-semibold mb-2 text-sm">
+                      Key Achievements:
+                    </h4>
                     <div className="space-y-1">
-                      {startup.achievements.map((achievement, achievementIndex) => (
-                        <div key={achievementIndex} className="flex items-center gap-2">
-                          <Award className="h-3 w-3 text-[#FFB347]" />
-                          <span className="text-gray-300 text-xs">{achievement}</span>
-                        </div>
-                      ))}
+                      {startup.achievements.map(
+                        (achievement, achievementIndex) => (
+                          <div
+                            key={achievementIndex}
+                            className="flex items-center gap-2"
+                          >
+                            <Award className="h-3 w-3 text-[#FFB347]" />
+                            <span className="text-gray-300 text-xs">
+                              {achievement}
+                            </span>
+                          </div>
+                        )
+                      )}
                     </div>
                   </div>
 
@@ -396,7 +483,8 @@ export default function StartupsPage() {
               Ready to Join Our Startup Ecosystem?
             </h2>
             <p className="text-xl text-[#1B120A] mb-8 leading-relaxed">
-              Transform your innovative idea into a successful startup with our comprehensive support
+              Transform your innovative idea into a successful startup with our
+              comprehensive support
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white rounded-full px-8 py-4 text-lg btn-animate hover-lift group">
@@ -414,5 +502,5 @@ export default function StartupsPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

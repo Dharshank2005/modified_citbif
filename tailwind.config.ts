@@ -3,6 +3,7 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   darkMode: ["class"],
   content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -58,6 +59,20 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        'fade-in': {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'scale-in': {
+          '0%': { transform: 'scale(0.8)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        'bounce-in': {
+          '0%': { transform: 'translateY(100px)', opacity: '0' },
+          '60%': { transform: 'translateY(-20px)', opacity: '1' },
+          '80%': { transform: 'translateY(10px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -82,6 +97,9 @@ const config: Config = {
         },
       },
       animation: {
+        'fade-in': 'fade-in 1s ease-out forwards',
+        'scale-in': 'scale-in 0.6s ease-out forwards',
+        'bounce-in': 'bounce-in 1s ease-out forwards',
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         neonGlow: "neonGlow 2s ease-in-out infinite",
